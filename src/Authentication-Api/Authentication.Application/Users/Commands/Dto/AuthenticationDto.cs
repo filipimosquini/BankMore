@@ -32,10 +32,10 @@ public class UserToken
     public string Id { get; set; }
 
     /// <summary>
-    /// The user e-mail.
+    /// The document.
     /// </summary>
     /// <example></example>
-    public string Email { get; set; }
+    public string Cpf { get; set; }
 
     /// <summary>
     /// The user claims.

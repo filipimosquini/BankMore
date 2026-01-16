@@ -3,9 +3,9 @@ using Authentication.Application.Users.Commands.CreateUser;
 using Authentication.Infrastructure.CrossCutting.ResourcesCatalog;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Authentication.Application.Services;
 
 namespace Authentication.Api.Configuration;
 

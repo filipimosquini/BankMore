@@ -1,0 +1,148 @@
+{
+    "resources": [
+        {
+            "Key": "UNEXPECTED_ERROR",
+            "values": [
+                {
+                    "value": {
+                        "code": "Error.Unexpected",
+                        "message": "We apologise by inconvenience, something is wrong but we are investigate and soon as possible, all will be working."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "BLOCKED_INVALID_ATTEMPT",
+            "values": [
+                {
+                    "value": {
+                        "code": "Blocked.InvalidAttempt",
+                        "message": "User temporarily blocked for invalid attempt."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "BLOCKED_NOT_ALLOWED_LOGIN",
+            "values": [
+                {
+                    "value": {
+                        "code": "Blocked.NotAllowedLogin",
+                        "message": "Sign in not allowed."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "BLOCKED_NOT_SUCCESS_LOGIN",
+            "values": [
+                {
+                    "value": {
+                        "code": "Blocked.NotSuccessLogin",
+                        "message": "Email or password are incorrect."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "EMAIL_IS_INVALID",
+            "values": [
+                {
+                    "value": {
+                        "code": "Email.IsInvalid",
+                        "message": "The e-mail is invalid."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "EMAIL_IS_REQUIRED",
+            "values": [
+                {
+                    "value": {
+                        "code": "Email.IsRequired",
+                        "message": "The e-mail is required."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "EMAIL_MUST_BE_INFORMED",
+            "values": [
+                {
+                    "value": {
+                        "code": "Email.MustBeInformed",
+                        "message": "The e-mail must be informed."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "PASSWORD_INVALID_LENGTH",
+            "values": [
+                {
+                    "value": {
+                        "code": "Password.InvalidLength",
+                        "message": "The password length must be between 6 and 15."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "PASSWORD_IS_REQUIRED",
+            "values": [
+                {
+                    "value": {
+                        "code": "Password.IsRequired",
+                        "message": "The password is required."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "PASSWORD_MUST_BE_INFORMED",
+            "values": [
+                {
+                    "value": {
+                        "code": "Password.MustBeInformed",
+                        "message": "The password must be informed."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "CONFIRM_PASSWORD_INVALID_LENGTH",
+            "values": [
+                {
+                    "value": {
+                        "code": "ConfirmPassword.InvalidLength",
+                        "message": "The confirmed password length must be between 6 and 15."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "CONFIRM_PASSWORD_IS_REQUIRED",
+            "values": [
+                {
+                    "value": {
+                        "code": "ConfirmPassword.IsRequired",
+                        "message": "The confirmed password is required."
+                    }
+                }
+            ]
+        },
+        {
+            "Key": "CONFIRM_PASSWORD_MUST_BE_INFORMED",
+            "values": [
+                {
+                    "value": {
+                        "code": "ConfirmPassword.MustBeInformed",
+                        "message": "The confirmed password must be informed."
+                    }
+                }
+            ]
+        }
+    ]
+}
+

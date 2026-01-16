@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Authentication.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Authentication.Api.Configuration.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Authentication.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
+            <summary>
+            Handle the exception result when AppCustomException occurs.
+            </summary>
+            <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Authentication.Api.Configuration.Middlewares.ExceptionMiddleware.HandleIdentityErrorCustomException(Microsoft.AspNetCore.Http.HttpResponse,Authentication.Infrastructure.CrossCutting.Exceptions.IdentityErrorCustomException)">
+            <summary>
+            Handle the exception result when IdentityErrorCustomException occurs.
+            </summary>
+            <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Authentication.Api.Configuration.Middlewares.ExceptionMiddleware.HandleValidationException(Microsoft.AspNetCore.Http.HttpResponse,FluentValidation.ValidationException)">
+            <summary>
+            Handle the exception result when ValidationException occurs.
+            </summary>
+            <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Authentication.Api.Configuration.Middlewares.ExceptionMiddleware.HandleFatalError(Microsoft.AspNetCore.Http.HttpResponse,System.Exception)">
+            <summary>
+            Handle the exception result when fatal error occurs.
+            </summary>
+            <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="T:Authentication.Api.Configurations.Validators.ValidatorBehavior`2">
+            <summary>
+            Validator behavior for mediator pipeline class.
+            </summary>
+            <typeparam name="TRequest"> The type of the request. </typeparam>
+            <typeparam name="TResponse"> The type of the response. </typeparam>
+        </member>
+        <member name="M:Authentication.Api.Configurations.Validators.ValidatorBehavior`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
+            <summary>
+            Handles the request validations.
+            </summary>
+            <param name="request"> The request. </param>
+            <param name="next"> The next. </param>
+            <param name="cancellationToken"> The cancellation token. </param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+    </members>
+</doc>

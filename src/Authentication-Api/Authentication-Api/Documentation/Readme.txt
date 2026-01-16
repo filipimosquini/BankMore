@@ -1,0 +1,1 @@
+Arquivo criado para gerar pasta no build do Swagger

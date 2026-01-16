@@ -10,11 +10,10 @@ public static class IdentityConfiguration
 {
     public static IServiceCollection AddIdentityDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        var mySqlConnection = configuration.GetConnectionString("MySqlConnection");
+        var oracleConnection = configuration.GetConnectionString("OracleConnection");
 
         services.AddDbContext<IdentityContext>(options =>
-            options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection),
-                x => x.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName)));
+            options.UseOracle(oracleConnection, oracleOptions => oracleOptions.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName)));
 
         return services;
     }

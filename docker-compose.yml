@@ -1,0 +1,27 @@
+volumes:
+  oracle-data-authentication:
+  
+services:
+   authentication.oracle:
+     container_name: authentication.oracle  
+     image: gvenzl/oracle-free
+     environment:
+       # Senha para o usuário SYS, SYSTEM e PDBADMIN
+       ORACLE_PASSWORD: "test@123"      
+       # Nomes do PDB (pluggable database)
+       ORACLE_PDB: "FREEPDB1"      
+       # Tipo de listener: "dedicated" ou "shared"
+       ORACLE_MEMORY: "2g"  # Limite de memória (Ajuste de acordo com seus recursos)      
+       # Quantidade de conexões máximas permitidas
+       ORACLE_INIT_PARAMS: "sessions=200, processes=100"      
+       # Tamanho do SGA, PGA em MB
+       ORACLE_CHARACTERSET: "AL32UTF8"  # Conjunto de caracteres do banco de dados      
+       # Porta para o listener do Oracle Database
+       ORACLE_EDITION: "xe"      
+     ports:
+       - "1521:1521"    # Porta para conexões SQL*Net
+       - "5500:5500"    # Porta para Oracle Enterprise Manager Express      
+     volumes:
+       - oracle-data-authentication:/opt/oracle/oradata    # Persistência dos dados do banco       
+       - ./assets/oracle/identity/init:/container-entrypoint-initdb.d # Executa scripts na inicialização do container
+     restart: always

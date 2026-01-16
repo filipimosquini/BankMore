@@ -10,10 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.1.21" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.2.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.35" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.23" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.35">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.23">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Authentication.Application\Authentication.Application.csproj" />
+    <ProjectReference Include="..\Authentication.Core\Authentication.Core.csproj" />
     <ProjectReference Include="..\Authentication.Infrastructure.CrossCutting\Authentication.Infrastructure.CrossCutting.csproj" />
     <ProjectReference Include="..\Authentication.Infrastructure\Authentication.Infrastructure.csproj" />
   </ItemGroup>

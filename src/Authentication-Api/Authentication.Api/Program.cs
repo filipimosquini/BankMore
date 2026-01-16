@@ -1,4 +1,6 @@
 using Authentication.Api.Configuration;
+using Authentication.Api.Configuration.Extensions;
+using Authentication.Api.Configuration.Middlewares;
 using Authentication.Api.Configurations.Extensions;
 using Authentication.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Builder;
@@ -6,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using Authentication.Api.Configuration.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration
@@ -24,9 +25,9 @@ builder.Services.AddControllers();
 // Configurations
 builder.Services
     .AddingCors()
-    .AddingResponseCompression();
-    //.AddIdentityDbContext(builder.Configuration)
-    //.AddingAuthentication(builder.Configuration);
+    .AddingResponseCompression()
+    .AddIdentityDbContext(builder.Configuration)
+    .AddingAuthentication(builder.Configuration);
 
 // Project
 builder.Services
@@ -49,7 +50,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 if (builder.Environment.IsProduction())
 {
-    //app.MigrateDatabase();
+    app.MigrateDatabase();
 }
 
 app.UseResponseCompression();

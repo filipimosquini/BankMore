@@ -1,21 +1,22 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Text;
+using Authentication.Core.UserAggregate;
+using Authentication.Infrastructure.Contexts;
+using Authentication.Infrastructure.Sections;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Authentication.Infrastructure.Contexts;
-using Authentication.Infrastructure.Sections;
 
-namespace Authentication.Api.Configurations.Extensions;
+namespace Authentication.Api.Configuration.Extensions;
 
 public static class AuthenticationSetup
 {
     public static IServiceCollection AddingAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDefaultIdentity<IdentityUser>()
-        .AddRoles<IdentityRole>()
-        .AddEntityFrameworkStores<IdentityContext>()
+        services
+            .AddIdentity<User, IdentityRole>()
+            .AddEntityFrameworkStores<IdentityContext>()
             .AddDefaultTokenProviders();
 
         var appSettingsSection = configuration.GetSection("Identity");

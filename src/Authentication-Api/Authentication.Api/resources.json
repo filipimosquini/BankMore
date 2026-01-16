@@ -111,6 +111,17 @@
       ]
     },
     {
+      "Key": "PASSWORD_MUST_BE_EQUAL",
+      "values": [
+        {
+          "value": {
+            "code": "Password.MustBeEqual",
+            "message": "The password must be equal."
+          }
+        }
+      ]
+    },
+    {
       "Key": "CONFIRM_PASSWORD_INVALID_LENGTH",
       "values": [
         {

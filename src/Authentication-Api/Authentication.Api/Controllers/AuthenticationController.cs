@@ -92,6 +92,7 @@ public class AuthenticationController : BaseController<AuthenticationController>
     ///     <li>Password.InvalidLength</li>
     ///     <li>Password.IsRequired</li>
     ///     <li>Password.MustBeInformed</li>
+    ///     <li>Password.MustBeEqual</li>
     ///     <li>ConfirmPassword.InvalidLength</li>
     ///     <li>ConfirmPassword.IsRequired</li>
     ///     <li>ConfirmPassword.MustBeInformed</li>

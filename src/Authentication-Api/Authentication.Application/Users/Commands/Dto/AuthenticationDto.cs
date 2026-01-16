@@ -32,12 +32,6 @@ public class UserToken
     public string Id { get; set; }
 
     /// <summary>
-    /// The document.
-    /// </summary>
-    /// <example></example>
-    public string Cpf { get; set; }
-
-    /// <summary>
     /// The user claims.
     /// </summary>
     /// <example></example>

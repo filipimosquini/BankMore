@@ -67,7 +67,6 @@ public class AuthenticationService(UserManager<User> _userManager, IOptions<Iden
             UserToken = new UserToken
             {
                 Id = user.Id,
-                Cpf = user.Cpf,
                 Claims = claims.Select(c => new UserClaim { Type = c.Type, Value = c.Value })
             }
         };

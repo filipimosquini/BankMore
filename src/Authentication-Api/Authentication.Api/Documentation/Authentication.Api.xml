@@ -49,5 +49,124 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
+        <member name="M:Authentication.Api.Controllers.AuthenticationController.SignInAsync(Authentication.Application.Users.Commands.SignIn.SignInCommand)">
+            <summary>
+            api/authentication/signin.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method make login and returns JWT token. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Not Exists. <br />
+            </p>
+            </remarks>
+            <response code="200">OK</response>
+            <response code="400"> Bad Request
+            <ul>
+                <li>Cpf.IsInvalid</li>
+                <li>Cpf.IsRequired</li>
+                <li>Cpf.MustBeInformed</li>
+                <li>Password.InvalidLength</li>
+                <li>Password.IsRequired</li>
+                <li>Password.MustBeInformed</li>
+            </ul>
+            </response> 
+            <response code="401"> Unauthorized
+            <ul>
+                <li>Blocked.UserUnauthorized</li>
+            </ul>
+            </response> 
+            <response code="403"> Forbidden
+            <ul>
+                <li>Blocked.NotAllowedLogin</li>
+            </ul>
+            </response>
+            <response code="429"> Too many requests
+            <ul>
+                <li>Blocked.InvalidAttempt</li>
+            </ul>
+            </response>
+            <response code="500"> InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
+        </member>
+        <member name="M:Authentication.Api.Controllers.AuthenticationController.CreateUserAsync(Authentication.Application.Users.Commands.CreateUser.CreateUserCommand)">
+            <summary>
+            api/authentication/users/create.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method create a user. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Not Exists. <br />
+            </p>
+            </remarks>
+            <response code="201">Created</response>
+            <response code="400"> Bad Request
+            <ul>
+                <li>Cpf.IsInvalid</li>
+                <li>Cpf.IsRequired</li>
+                <li>Cpf.MustBeInformed</li>
+                <li>Password.InvalidLength</li>
+                <li>Password.IsRequired</li>
+                <li>Password.MustBeInformed</li>
+                <li>ConfirmPassword.InvalidLength</li>
+                <li>ConfirmPassword.IsRequired</li>
+                <li>ConfirmPassword.MustBeInformed</li>
+            </ul>
+            </response> 
+            <response code="500">InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
+        </member>
+        <member name="T:Authentication.Api.Controllers.BaseController`1">
+            <summary>
+            Base controller class.
+            </summary>
+        </member>
+        <member name="P:Authentication.Api.Controllers.BaseController`1._log">
+            <summary>
+            Gets or Sets the log service.
+            </summary>
+        </member>
+        <member name="P:Authentication.Api.Controllers.BaseController`1._mediatorService">
+            <summary>
+            Gets or Sets the mediator service.
+            </summary>
+        </member>
+        <member name="M:Authentication.Api.Controllers.BaseController`1.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,MediatR.IMediator)">
+            <summary>
+            The constructor.
+            </summary>
+            <param name="loggerFactory"></param>
+            <param name="mediatorService"></param>
+        </member>
+        <member name="M:Authentication.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            
+            </summary>
+            <typeparam name="TDataObject">The type of the data object.</typeparam>
+            <param name="function">The function</param>
+            <returns></returns>
+        </member>
+        <member name="M:Authentication.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Net.HttpStatusCode)">
+            <summary>
+            Generate the response asynchronous.
+            </summary>
+            <typeparam name="TDataObject">The type of the data object.</typeparam>
+            <param name="function">The function</param>
+            <param name="httpStatusCode">The response code.</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

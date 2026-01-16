@@ -13,6 +13,215 @@
     },
     "version": "v1"
   },
-  "paths": { },
-  "components": { }
+  "paths": {
+    "/api/authentication/signin": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "api/authentication/signin.",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  <br />\r\n            This method make login and returns JWT token. <br /></p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  <br />\r\n            Not Exists. <br /></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request\r\n           <ul><li>Cpf.IsInvalid</li><li>Cpf.IsRequired</li><li>Cpf.MustBeInformed</li><li>Password.InvalidLength</li><li>Password.IsRequired</li><li>Password.MustBeInformed</li></ul>"
+          },
+          "401": {
+            "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
+          },
+          "403": {
+            "description": "Forbidden\r\n           <ul><li>Blocked.NotAllowedLogin</li></ul>"
+          },
+          "429": {
+            "description": "Too many requests\r\n           <ul><li>Blocked.InvalidAttempt</li></ul>"
+          },
+          "500": {
+            "description": "InternalServerError\r\n           <ul><li>Error.Unexpected</li></ul>"
+          }
+        }
+      }
+    },
+    "/api/authentication/users/create": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "api/authentication/users/create.",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  <br />\r\n            This method create a user. <br /></p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  <br />\r\n            Not Exists. <br /></p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request\r\n           <ul><li>Cpf.IsInvalid</li><li>Cpf.IsRequired</li><li>Cpf.MustBeInformed</li><li>Password.InvalidLength</li><li>Password.IsRequired</li><li>Password.MustBeInformed</li><li>ConfirmPassword.InvalidLength</li><li>ConfirmPassword.IsRequired</li><li>ConfirmPassword.MustBeInformed</li></ul>"
+          },
+          "500": {
+            "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthenticationDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiresIn": {
+            "type": "number",
+            "format": "double"
+          },
+          "userToken": {
+            "$ref": "#/components/schemas/UserToken"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateUserCommand": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "confirmPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SignInCommand": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserClaim": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserToken": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "cpf": {
+            "type": "string",
+            "nullable": true
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserClaim"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
 }

@@ -1,11 +1,13 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Net;
-using System.Threading.Tasks;
+﻿using Authentication.Api.Documentation.Swagger.Examples;
 using Authentication.Application.Users.Commands.CreateUser;
 using Authentication.Application.Users.Commands.Dto;
 using Authentication.Application.Users.Commands.SignIn;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Filters;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Authentication.Api.Controllers;
 
@@ -63,6 +65,7 @@ public class AuthenticationController : BaseController<AuthenticationController>
     /// </ul>
     /// </response>
     [HttpPost("signin")]
+    [SwaggerRequestExample(typeof(SignInCommand), typeof(SignInCommandExample))]
     [ProducesResponseType(typeof(AuthenticationDto), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> SignInAsync([FromBody] SignInCommand command)
         => await ExecuteAsync(async () => await _mediatorService.Send(command));
@@ -100,6 +103,7 @@ public class AuthenticationController : BaseController<AuthenticationController>
     /// </ul>
     /// </response>
     [HttpPost("users/create")]
+    [SwaggerRequestExample(typeof(CreateUserCommand), typeof(CreateUserCommandExample))]
     [ProducesResponseType(typeof(AuthenticationDto), (int)HttpStatusCode.Created)]
     public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserCommand command)
         => await ExecuteAsync(async () => await _mediatorService.Send(command), HttpStatusCode.Created);

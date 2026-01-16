@@ -20,23 +20,26 @@
           "Authentication"
         ],
         "summary": "api/authentication/signin.",
-        "description": "<p>\r\n  <b> Description: </b>\r\n  <br />\r\n            This method make login and returns JWT token. <br /></p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  <br />\r\n            Not Exists. <br /></p>",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method make login and returns JWT token. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Not Exists. \r\n</p>",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SignInCommand"
-              }
+              },
+              "example": {"cpf":"20069640033","password":"Teste@123"}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/SignInCommand"
-              }
+              },
+              "example": {"cpf":"20069640033","password":"Teste@123"}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/SignInCommand"
-              }
+              },
+              "example": {"cpf":"20069640033","password":"Teste@123"}
             }
           }
         },
@@ -85,23 +88,26 @@
           "Authentication"
         ],
         "summary": "api/authentication/users/create.",
-        "description": "<p>\r\n  <b> Description: </b>\r\n  <br />\r\n            This method create a user. <br /></p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  <br />\r\n            Not Exists. <br /></p>",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method create a user. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Not Exists. \r\n</p>",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateUserCommand"
-              }
+              },
+              "example": {"cpf":"20069640033","password":"Teste@123","confirmPassword":"Teste@123"}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateUserCommand"
-              }
+              },
+              "example": {"cpf":"20069640033","password":"Teste@123","confirmPassword":"Teste@123"}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateUserCommand"
-              }
+              },
+              "example": {"cpf":"20069640033","password":"Teste@123","confirmPassword":"Teste@123"}
             }
           }
         },

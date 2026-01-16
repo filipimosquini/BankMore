@@ -1,8 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using Authentication.Application.Users.Commands.CreateUser;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
+using System;
+using System.IO;
+using Authentication.Api.Documentation.Swagger.Examples;
 
 namespace Authentication.Api.Configurations.Extensions;
 
@@ -11,8 +14,11 @@ public static class SwaggerSetup
     public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
     {
         services.AddSwaggerGenNewtonsoftSupport();
+        services.AddSwaggerExamplesFromAssemblyOf<CreateUserCommandExample>();
         services.AddSwaggerGen(options =>
         {
+            options.ExampleFilters();
+
             var xmlFilesPath = "./Documentation";
             var folder = new DirectoryInfo(xmlFilesPath);
 

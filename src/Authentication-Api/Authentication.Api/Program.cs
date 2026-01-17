@@ -14,8 +14,7 @@ builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("appsettings.json", true, true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
-    .AddEnvironmentVariables()
-    .Build();
+    .AddEnvironmentVariables();
 
 Console.WriteLine(builder.Environment.EnvironmentName);
 // Add services to the container.

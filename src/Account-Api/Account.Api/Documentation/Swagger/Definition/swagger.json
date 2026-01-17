@@ -13,7 +13,32 @@
     },
     "version": "v1"
   },
-  "paths": { },
+  "paths": {
+    "/api/test/secure": {
+      "get": {
+        "tags": [
+          "Test"
+        ],
+        "summary": " (Auth)",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    }
+  },
   "components": {
     "securitySchemes": {
       "Bearer": {

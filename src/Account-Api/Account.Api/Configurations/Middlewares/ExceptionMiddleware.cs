@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Account.Api.Configuration.Middlewares;
+namespace Account.Api.Configurations.Middlewares;
 
 public class ExceptionMiddleware
 {

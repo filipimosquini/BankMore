@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Authentication.Api.Configurations.Extensions;
+namespace Account.Api.Configurations.Extensions;
 
 public static class CorsSetup
 {

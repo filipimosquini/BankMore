@@ -2,7 +2,7 @@
 using Account.Infrastructure.CrossCutting.ResourcesCatalog;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Account.Api.Configuration;
+namespace Account.Api.Configurations;
 
 public static class Bootstrap
 {

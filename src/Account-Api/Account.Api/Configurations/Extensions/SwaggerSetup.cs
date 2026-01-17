@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Account.Api.Configuration.Extensions;
+namespace Account.Api.Configurations.Extensions;
 
 public static class SwaggerSetup
 {

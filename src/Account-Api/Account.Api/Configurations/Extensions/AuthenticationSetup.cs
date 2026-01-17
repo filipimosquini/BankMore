@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 
-namespace Account.Api.Configuration.Extensions;
+namespace Account.Api.Configurations.Extensions;
 
 public static class AuthenticationSetup
 {

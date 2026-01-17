@@ -1,13 +1,12 @@
-using Account.Api.Configuration;
-using Account.Api.Configuration.Extensions;
-using Account.Api.Configuration.Middlewares;
-using Authentication.Api.Configurations.Extensions;
+using Account.Api.Configurations;
+using Account.Api.Configurations.Extensions;
+using Account.Api.Configurations.Middlewares;
+using Account.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using Account.Infrastructure.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration

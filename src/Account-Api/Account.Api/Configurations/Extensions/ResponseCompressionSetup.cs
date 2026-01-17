@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Authentication.Api.Configurations.Extensions;
+namespace Account.Api.Configurations.Extensions;
 
 public static class ResponseCompressionSetup
 {

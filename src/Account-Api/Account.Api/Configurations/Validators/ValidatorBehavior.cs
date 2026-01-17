@@ -5,7 +5,7 @@ using System.Threading;
 using System;
 using System.Linq;
 
-namespace Authentication.Api.Configurations.Validators;
+namespace Account.Api.Configurations.Validators;
 
 /// <summary>
 /// Validator behavior for mediator pipeline class.

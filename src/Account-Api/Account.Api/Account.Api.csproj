@@ -59,15 +59,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Documentation\Authentication.Api.xml</DocumentationFile>
+    <DocumentationFile>Documentation\Account.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Debug'">
     <Exec Command="dotnet tool restore" />
-    <Exec
-      Command="dotnet swagger tofile --output Documentation/Swagger/Definition/swagger.json $(OutputPath)/$(AssemblyName).dll v1"
-      WorkingDirectory="$(ProjectDir)"
-      EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development;DOTNET_ENVIRONMENT=Development" />
+    <Exec Command="dotnet swagger tofile --output Documentation/Swagger/Definition/swagger.json $(OutputPath)/$(AssemblyName).dll v1" WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development;DOTNET_ENVIRONMENT=Development" />
   </Target>
 
 </Project>

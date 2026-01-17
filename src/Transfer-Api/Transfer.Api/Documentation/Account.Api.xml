@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Account.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Account.Api.Configuration.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Authentication.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
+            <summary>
+            Handle the exception result when AppCustomException occurs.
+            </summary>
+            <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Account.Api.Configuration.Middlewares.ExceptionMiddleware.HandleValidationException(Microsoft.AspNetCore.Http.HttpResponse,FluentValidation.ValidationException)">
+            <summary>
+            Handle the exception result when ValidationException occurs.
+            </summary>
+            <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Account.Api.Configuration.Middlewares.ExceptionMiddleware.HandleFatalError(Microsoft.AspNetCore.Http.HttpResponse,System.Exception)">
+            <summary>
+            Handle the exception result when fatal error occurs.
+            </summary>
+            <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="T:Account.Api.Controllers.BaseController`1">
+            <summary>
+            Base controller class.
+            </summary>
+        </member>
+        <member name="P:Account.Api.Controllers.BaseController`1._log">
+            <summary>
+            Gets or Sets the log service.
+            </summary>
+        </member>
+        <member name="P:Account.Api.Controllers.BaseController`1._mediatorService">
+            <summary>
+            Gets or Sets the mediator service.
+            </summary>
+        </member>
+        <member name="M:Account.Api.Controllers.BaseController`1.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,MediatR.IMediator)">
+            <summary>
+            The constructor.
+            </summary>
+            <param name="loggerFactory"></param>
+            <param name="mediatorService"></param>
+        </member>
+        <member name="M:Account.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            
+            </summary>
+            <typeparam name="TDataObject">The type of the data object.</typeparam>
+            <param name="function">The function</param>
+            <returns></returns>
+        </member>
+        <member name="M:Account.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Net.HttpStatusCode)">
+            <summary>
+            Generate the response asynchronous.
+            </summary>
+            <typeparam name="TDataObject">The type of the data object.</typeparam>
+            <param name="function">The function</param>
+            <param name="httpStatusCode">The response code.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Authentication.Api.Configurations.Validators.ValidatorBehavior`2">
+            <summary>
+            Validator behavior for mediator pipeline class.
+            </summary>
+            <typeparam name="TRequest"> The type of the request. </typeparam>
+            <typeparam name="TResponse"> The type of the response. </typeparam>
+        </member>
+        <member name="M:Authentication.Api.Configurations.Validators.ValidatorBehavior`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
+            <summary>
+            Handles the request validations.
+            </summary>
+            <param name="request"> The request. </param>
+            <param name="next"> The next. </param>
+            <param name="cancellationToken"> The cancellation token. </param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+    </members>
+</doc>

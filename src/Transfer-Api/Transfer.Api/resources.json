@@ -1,0 +1,15 @@
+{
+  "resources": [
+    {
+      "Key": "UNEXPECTED_ERROR",
+      "values": [
+        {
+          "value": {
+            "code": "Error.Unexpected",
+            "message": "We apologise by inconvenience, something is wrong but we are investigate and soon as possible, all will be working."
+          }
+        }
+      ]
+    },
+  ]
+}

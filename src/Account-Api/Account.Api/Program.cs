@@ -26,6 +26,7 @@ builder.Services
     .AddDbContext(builder.Configuration)
     .AddingCors()
     .AddingResponseCompression()
+    .AddingAuthentication(builder.Configuration)
     .AddAuthorization();
 
 // Project

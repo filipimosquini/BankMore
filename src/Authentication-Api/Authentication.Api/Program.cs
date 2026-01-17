@@ -64,4 +64,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapJwksEndpoint();
+app.MapOpenIdConfiguration();
+
 app.Run();

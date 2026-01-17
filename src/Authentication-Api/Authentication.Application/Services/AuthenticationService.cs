@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
@@ -46,14 +47,23 @@ public class AuthenticationService(UserManager<User> _userManager, IOptions<Iden
     protected string CodeToken(ClaimsIdentity identityClaims)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_identity.Secret);
+
+        // Carrega a chave privada RSA do PEM
+        var rsa = RSA.Create();
+        rsa.ImportFromPem(_identity.RsaPrivateKeyPem);
+
+        var rsaKey = new RsaSecurityKey(rsa)
+        {
+            KeyId = _identity.RsaKeyId // isso vira o "kid" no header do JWT
+        };
+
         var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
         {
             Issuer = _identity.Issuer,
             Audience = _identity.ValidOn,
             Subject = identityClaims,
             Expires = DateTime.UtcNow.AddHours(_identity.ExpiratesIn),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(rsaKey, SecurityAlgorithms.RsaSha256)
         });
 
         return tokenHandler.WriteToken(token);

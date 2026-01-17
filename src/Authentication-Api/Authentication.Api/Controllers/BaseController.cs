@@ -22,6 +22,8 @@ public abstract class BaseController<T> : Controller
     /// </summary>
     protected IMediator _mediatorService { get; }
 
+    protected string UserId =>
+        User?.FindFirst("UserId")?.Value ?? string.Empty;
 
     /// <summary>
     /// The constructor.

@@ -14,7 +14,7 @@ public static class SwaggerSetup
     public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services)
     {
         services.AddSwaggerGenNewtonsoftSupport();
-        services.AddSwaggerExamplesFromAssemblyOf<CreateUserCommandExample>();
+        services.AddSwaggerExamplesFromAssemblyOf<DefaultRequestExample>();
         services.AddSwaggerGen(options =>
         {
             options.ExampleFilters();
@@ -28,6 +28,17 @@ public static class SwaggerSetup
             {
                 options.IncludeXmlComments(file.FullName, true);
             }
+
+            options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+            options.OperationFilter<SecurityRequirementsOperationFilter>(true, "Bearer");
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = "Standard Authorization header using the Bearer scheme (JWT). Example: \"bearer {token}\"",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
 
             options.SwaggerDoc("v1", new OpenApiInfo()
             {

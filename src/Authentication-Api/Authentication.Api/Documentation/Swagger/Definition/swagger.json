@@ -140,6 +140,54 @@
           }
         }
       }
+    },
+    "/api/users/information": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "api/users/information. (Auth)",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method get a user information. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is necessary to be authenticated to get information. \r\n</p>",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInformationDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInformationDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInformationDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found\r\n           <ul><li>User.NotFound</li></ul>"
+          },
+          "500": {
+            "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -207,6 +255,20 @@
         },
         "additionalProperties": false
       },
+      "UserInformationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "cpf": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "UserToken": {
         "type": "object",
         "properties": {
@@ -223,6 +285,14 @@
           }
         },
         "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Standard Authorization header using the Bearer scheme (JWT). Example: \"bearer {token}\"",
+        "name": "Authorization",
+        "in": "header"
       }
     }
   }

@@ -27,6 +27,7 @@ public class AuthenticationService(UserManager<User> _userManager, IOptions<Iden
         var userRoles = await _userManager.GetRolesAsync(user);
 
         claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
+        claims.Add(new Claim("UserId", user.Id));
         claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
         claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
         claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));

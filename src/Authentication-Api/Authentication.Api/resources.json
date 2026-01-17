@@ -45,6 +45,17 @@
       ]
     },
     {
+      "Key": "USER_NOT_FOUND",
+      "values": [
+        {
+          "value": {
+            "code": "User.NotFound",
+            "message": "User is not found or not exists."
+          }
+        }
+      ]
+    },    
+    {
       "Key": "CPF_IS_INVALID",
       "values": [
         {

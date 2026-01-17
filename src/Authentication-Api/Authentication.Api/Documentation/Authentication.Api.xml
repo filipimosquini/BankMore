@@ -169,5 +169,31 @@
             <param name="httpStatusCode">The response code.</param>
             <returns></returns>
         </member>
+        <member name="M:Authentication.Api.Controllers.UserController.GetUserInformationAsync">
+            <summary>
+            api/users/information.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method get a user information. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Is necessary to be authenticated to get information. <br />
+            </p>
+            </remarks>
+            <response code="200">OK</response>
+            <response code="404"> Not Found
+            <ul>
+                <li>User.NotFound</li>
+            </ul>
+            </response> 
+            <response code="500">InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
+        </member>
     </members>
 </doc>

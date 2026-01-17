@@ -57,6 +57,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       DOTNET_ENVIRONMENT: Production
+      Identity__Authority: "https://authentication.api:5001"
+      Identity__Audience: "https://localhost"
     depends_on:
       bankmore.oracle:
         condition: service_healthy

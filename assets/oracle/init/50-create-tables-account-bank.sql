@@ -27,9 +27,9 @@ BEGIN
       idcontacorrente VARCHAR2(37) NOT NULL,
       numero          NUMBER(10)   NOT NULL,
       nome            VARCHAR2(100) NOT NULL,
-      ativo           NUMBER(1) DEFAULT 0 NOT NULL,
+      ativo           NUMBER(1) DEFAULT 1 NOT NULL,
       senha           VARCHAR2(100) NOT NULL,
-      salt            VARCHAR2(100) NOT NULL,
+      idusuario		  VARCHAR2(37) NOT NULL,
       CONSTRAINT pk_contacorrente PRIMARY KEY (idcontacorrente),
       CONSTRAINT uq_contacorrente_numero UNIQUE (numero),
       CONSTRAINT ck_contacorrente_ativo CHECK (ativo IN (0,1))

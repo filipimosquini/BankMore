@@ -9,14 +9,12 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Authentication.Application.Services;
 
-public class AuthenticationService(UserManager<User> _userManager, IOptions<Identity> identity) : IAuthenticationService
+public class AuthenticationService(UserManager<User> _userManager, IOptions<Identity> identity, RsaSecurityKey rsaKey) : IAuthenticationService
 {
     private readonly Identity _identity = identity.Value!;
 
@@ -47,15 +45,6 @@ public class AuthenticationService(UserManager<User> _userManager, IOptions<Iden
     protected string CodeToken(ClaimsIdentity identityClaims)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-
-        // Carrega a chave privada RSA do PEM
-        var rsa = RSA.Create();
-        rsa.ImportFromPem(_identity.RsaPrivateKeyPem);
-
-        var rsaKey = new RsaSecurityKey(rsa)
-        {
-            KeyId = _identity.RsaKeyId // isso vira o "kid" no header do JWT
-        };
 
         var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
         {

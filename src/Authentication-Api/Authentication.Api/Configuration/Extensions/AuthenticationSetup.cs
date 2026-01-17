@@ -27,36 +27,62 @@ public static class AuthenticationSetup
 
         var appSettingsSection = configuration.GetSection("Identity");
         services.Configure<Identity>(appSettingsSection);
-        var identitySettings = appSettingsSection.Get<Identity>();
 
-        var rsa = RSA.Create();
-        rsa.ImportFromPem(identitySettings.RsaPrivateKeyPem);
-
-        var rsaKey = new RsaSecurityKey(rsa)
+        // Cache RSA key at once using singleton
+        services.AddSingleton<RsaSecurityKey>(sp =>
         {
-            KeyId = identitySettings.RsaKeyId
-        };
-        
-        var key = Encoding.ASCII.GetBytes(identitySettings.Secret);
+            var identity = sp.GetRequiredService<IOptions<Identity>>().Value;
+
+            var rsa = RSA.Create();
+            rsa.ImportFromPem(identity.RsaPrivateKeyPem);
+
+            return new RsaSecurityKey(rsa)
+            {
+                KeyId = identity.RsaKeyId
+            };
+        });
+
+        // Cache JWKS at once using singleton
+        services.AddSingleton<JsonWebKeySet>(sp =>
+        {
+            var identity = sp.GetRequiredService<IOptions<Identity>>().Value;
+            var rsaKey = sp.GetRequiredService<RsaSecurityKey>();
+
+            var jwk = JsonWebKeyConverter.ConvertFromSecurityKey(rsaKey);
+            jwk.Use = "sig";
+            jwk.Alg = SecurityAlgorithms.RsaSha256;
+            jwk.Kid = identity.RsaKeyId;
+
+            var jwks = new JsonWebKeySet();
+            jwks.Keys.Add(jwk);
+
+            return jwks;
+        });
+
 
         services.AddAuthentication(auth =>
+        {
+            auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer();
+
+        services.AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+            .Configure<IOptions<Identity>, RsaSecurityKey>((options, identityOpt, rsaKey) =>
             {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(auth =>
-            {
-                auth.RequireHttpsMetadata = false;
-                auth.SaveToken = true;
-                auth.TokenValidationParameters = new TokenValidationParameters
+                var identity = identityOpt.Value;
+
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = rsaKey,
 
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidAudience = identitySettings.ValidOn,
-                    ValidIssuer = identitySettings.Issuer
+                    ValidAudience = identity.ValidOn,
+                    ValidIssuer = identity.Issuer
                 };
             });
 
@@ -65,30 +91,10 @@ public static class AuthenticationSetup
 
     public static IEndpointRouteBuilder MapJwksEndpoint(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapGet("/.well-known/jwks.json", (IOptions<Identity> opt) =>
-            {
-                var identity = opt.Value;
-
-                var rsa = RSA.Create();
-                rsa.ImportFromPem(identity.RsaPrivateKeyPem);
-
-                var rsaKey = new RsaSecurityKey(rsa)
-                {
-                    KeyId = identity.RsaKeyId
-                };
-
-                var jwk = JsonWebKeyConverter.ConvertFromSecurityKey(rsaKey);
-                jwk.Use = "sig";
-                jwk.Alg = SecurityAlgorithms.RsaSha256;
-                jwk.Kid = identity.RsaKeyId;
-
-                var jwks = new JsonWebKeySet();
-                jwks.Keys.Add(jwk);
-
-                return Results.Json(jwks);
-            })
+        // JWKS returned from singleton (RSA is not Created by request)
+        endpoints.MapGet("/.well-known/jwks.json", (JsonWebKeySet jwks) => Results.Json(jwks))
             .WithName("JWKS")
-            .WithTags("Auth");
+            .WithTags("JWKS");
 
         return endpoints;
     }
@@ -107,7 +113,7 @@ public static class AuthenticationSetup
                 });
             })
             .WithName("OpenIdConfiguration")
-            .WithTags("Auth");
+            .WithTags("JWKS");
 
         return endpoints;
     }

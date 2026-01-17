@@ -36,9 +36,9 @@ public class AuthenticationController : BaseController<AuthenticationController>
     /// <response code="200">OK</response>
     /// <response code="400"> Bad Request
     /// <ul>
-    ///     <li>Cpf.IsInvalid</li>
-    ///     <li>Cpf.IsRequired</li>
-    ///     <li>Cpf.MustBeInformed</li>
+    ///     <li>Document.IsInvalid</li>
+    ///     <li>Document.IsRequired</li>
+    ///     <li>Document.MustBeInformed</li>
     ///     <li>Password.InvalidLength</li>
     ///     <li>Password.IsRequired</li>
     ///     <li>Password.MustBeInformed</li>
@@ -86,9 +86,9 @@ public class AuthenticationController : BaseController<AuthenticationController>
     /// <response code="201">Created</response>
     /// <response code="400"> Bad Request
     /// <ul>
-    ///     <li>Cpf.IsInvalid</li>
-    ///     <li>Cpf.IsRequired</li>
-    ///     <li>Cpf.MustBeInformed</li>
+    ///     <li>Document.IsInvalid</li>
+    ///     <li>Document.IsRequired</li>
+    ///     <li>Document.MustBeInformed</li>
     ///     <li>Password.InvalidLength</li>
     ///     <li>Password.IsRequired</li>
     ///     <li>Password.MustBeInformed</li>

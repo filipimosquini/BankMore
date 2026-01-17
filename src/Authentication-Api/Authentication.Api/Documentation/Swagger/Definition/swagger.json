@@ -65,7 +65,7 @@
             }
           },
           "400": {
-            "description": "Bad Request\r\n           <ul><li>Cpf.IsInvalid</li><li>Cpf.IsRequired</li><li>Cpf.MustBeInformed</li><li>Password.InvalidLength</li><li>Password.IsRequired</li><li>Password.MustBeInformed</li></ul>"
+            "description": "Bad Request\r\n           <ul><li>Document.IsInvalid</li><li>Document.IsRequired</li><li>Document.MustBeInformed</li><li>Password.InvalidLength</li><li>Password.IsRequired</li><li>Password.MustBeInformed</li></ul>"
           },
           "401": {
             "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
@@ -133,7 +133,7 @@
             }
           },
           "400": {
-            "description": "Bad Request\r\n           <ul><li>Cpf.IsInvalid</li><li>Cpf.IsRequired</li><li>Cpf.MustBeInformed</li><li>Password.InvalidLength</li><li>Password.IsRequired</li><li>Password.MustBeInformed</li><li>Password.MustBeEqual</li><li>ConfirmPassword.InvalidLength</li><li>ConfirmPassword.IsRequired</li><li>ConfirmPassword.MustBeInformed</li></ul>"
+            "description": "Bad Request\r\n           <ul><li>Document.IsInvalid</li><li>Document.IsRequired</li><li>Document.MustBeInformed</li><li>Password.InvalidLength</li><li>Password.IsRequired</li><li>Password.MustBeInformed</li><li>Password.MustBeEqual</li><li>ConfirmPassword.InvalidLength</li><li>ConfirmPassword.IsRequired</li><li>ConfirmPassword.MustBeInformed</li></ul>"
           },
           "500": {
             "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"

@@ -54,35 +54,35 @@
           }
         }
       ]
-    },    
+    },
     {
-      "Key": "CPF_IS_INVALID",
+      "Key": "DOCUMENT_IS_INVALID",
       "values": [
         {
           "value": {
-            "code": "Cpf.IsInvalid",
+            "code": "Document.IsInvalid",
             "message": "The document is invalid."
           }
         }
       ]
     },
     {
-      "Key": "CPF_IS_REQUIRED",
+      "Key": "DOCUMENT_IS_REQUIRED",
       "values": [
         {
           "value": {
-            "code": "Cpf.IsRequired",
+            "code": "Document.IsRequired",
             "message": "The document is required."
           }
         }
       ]
     },
     {
-      "Key": "CPF_MUST_BE_INFORMED",
+      "Key": "DOCUMENT_MUST_BE_INFORMED",
       "values": [
         {
           "value": {
-            "code": "Cpf.MustBeInformed",
+            "code": "Document.MustBeInformed",
             "message": "The document must be informed."
           }
         }

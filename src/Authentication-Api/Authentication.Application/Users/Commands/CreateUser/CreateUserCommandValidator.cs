@@ -8,9 +8,9 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     public CreateUserCommandValidator()
     {
         RuleFor(x => x.Cpf)
-            .NotEmpty().WithErrorCode("CPF_MUST_BE_INFORMED")
-            .NotNull().WithErrorCode("CPF_IS_REQUIRED")
-            .Must(ValidDocument).WithErrorCode("CPF_IS_INVALID");
+            .NotEmpty().WithErrorCode("DOCUMENT_MUST_BE_INFORMED")
+            .NotNull().WithErrorCode("DOCUMENT_IS_REQUIRED")
+            .Must(ValidDocument).WithErrorCode("DOCUMENT_IS_INVALID");
 
         RuleFor(x => x.Password)
             .NotEmpty().WithErrorCode("PASSWORD_MUST_BE_INFORMED")

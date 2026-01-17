@@ -1,25 +1,25 @@
 # Etapa de execução base
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
 # Etapa de build
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copia os arquivos de projeto e restaura dependências
-COPY ["src/Authentication-api/Authentication.Api/Authentication.Api.csproj", "Authentication.Api/"]
-COPY ["src/Authentication-api/Authentication.Application/Authentication.Application.csproj", "Authentication.Application/"]
-COPY ["src/Authentication-api/Authentication.Domain/Authentication.Domain.csproj", "Authentication.Domain/"]
-COPY ["src/Authentication-api/Authentication.Infrastructure/Authentication.Infrastructure.csproj", "Authentication.Infrastructure/"]
-COPY ["src/Authentication-api/Authentication.Infrastructure.CrossCutting/Authentication.Infrastructure.CrossCutting.csproj", "Authentication.Infrastructure.CrossCutting/"]
+COPY ["src/Authentication-Api/Authentication.Api/Authentication.Api.csproj", "Authentication.Api/"]
+COPY ["src/Authentication-Api/Authentication.Application/Authentication.Application.csproj", "Authentication.Application/"]
+COPY ["src/Authentication-Api/Authentication.Core/Authentication.Core.csproj", "Authentication.Core/"]
+COPY ["src/Authentication-Api/Authentication.Infrastructure/Authentication.Infrastructure.csproj", "Authentication.Infrastructure/"]
+COPY ["src/Authentication-Api/Authentication.Infrastructure.CrossCutting/Authentication.Infrastructure.CrossCutting.csproj", "Authentication.Infrastructure.CrossCutting/"]
 
 # Restaura as dependências
 RUN dotnet restore "Authentication.Api/Authentication.Api.csproj"
 
 # Copia todo o conteúdo do diretório src para o contêiner
-COPY src/Authentication-api/ .
+COPY src/Authentication-Api/ .
 
 # Define o diretório de trabalho como o projeto principal
 WORKDIR /src/Authentication.Api

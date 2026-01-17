@@ -1,27 +1,62 @@
+version: "3.8"
+
 volumes:
-  oracle-data-authentication:
-  
+  oracle-data-bankmore:
+
 services:
-   authentication.oracle:
-     container_name: authentication.oracle  
-     image: gvenzl/oracle-free
-     environment:
-       # Senha para o usuário SYS, SYSTEM e PDBADMIN
-       ORACLE_PASSWORD: "test@123"      
-       # Nomes do PDB (pluggable database)
-       ORACLE_PDB: "FREEPDB1"      
-       # Tipo de listener: "dedicated" ou "shared"
-       ORACLE_MEMORY: "2g"  # Limite de memória (Ajuste de acordo com seus recursos)      
-       # Quantidade de conexões máximas permitidas
-       ORACLE_INIT_PARAMS: "sessions=200, processes=100"      
-       # Tamanho do SGA, PGA em MB
-       ORACLE_CHARACTERSET: "AL32UTF8"  # Conjunto de caracteres do banco de dados      
-       # Porta para o listener do Oracle Database
-       ORACLE_EDITION: "xe"      
-     ports:
-       - "1521:1521"    # Porta para conexões SQL*Net
-       - "5500:5500"    # Porta para Oracle Enterprise Manager Express      
-     volumes:
-       - oracle-data-authentication:/opt/oracle/oradata    # Persistência dos dados do banco       
-       - ./assets/oracle/identity/init:/container-entrypoint-initdb.d # Executa scripts na inicialização do container
-     restart: always
+  bankmore.oracle:
+    container_name: bankmore.oracle
+    image: gvenzl/oracle-free
+    environment:
+      ORACLE_PASSWORD: "test@123"
+      ORACLE_PDB: "FREEPDB1"
+      ORACLE_MEMORY: "2g"
+      ORACLE_INIT_PARAMS: "sessions=200, processes=100"
+      ORACLE_CHARACTERSET: "AL32UTF8"
+      ORACLE_EDITION: "xe"
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    volumes:
+      - oracle-data-bankmore:/opt/oracle/oradata
+      - ./assets/oracle/init:/container-entrypoint-initdb.d
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'select 1 from dual;' | sqlplus -s system/test@123@localhost/FREEPDB1 > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  authentication.api:
+    container_name: authentication.api
+    image: ${DOCKER_REGISTRY-}authentication
+    build:
+      context: .
+      dockerfile: src/Authentication-Api/Authentication.Api/Dockerfile
+    restart: always
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      DOTNET_ENVIRONMENT: Production
+    depends_on:
+      bankmore.oracle:
+        condition: service_healthy
+
+  account.api:
+    container_name: account.api
+    image: ${DOCKER_REGISTRY-}account
+    build:
+      context: .
+      dockerfile: src/Account-Api/Account.Api/Dockerfile
+    restart: always
+    ports:
+      - "5010:80"
+      - "5011:443"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      DOTNET_ENVIRONMENT: Production
+    depends_on:
+      bankmore.oracle:
+        condition: service_healthy

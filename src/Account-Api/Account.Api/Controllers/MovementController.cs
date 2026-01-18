@@ -52,6 +52,11 @@ public class MovementController : BaseController<MovementController>
     ///     <li>NotFound.Account</li>
     /// </ul>
     /// </response>
+    /// <response code="409"> Conflict
+    /// <ul>
+    ///     <li>Conflict.OnlyCreditMovementAccepted</li>
+    /// </ul>
+    /// </response>
     /// <response code="500">InternalServerError
     /// <ul>
     ///     <li>Error.Unexpected</li>
@@ -59,10 +64,17 @@ public class MovementController : BaseController<MovementController>
     /// </response>
     [HttpPost]
     [Authorize]
-    [SwaggerRequestExample(typeof(CreateMovementCommand), typeof(CreateMovementCommandExample))]
+    [SwaggerRequestExample(typeof(CreateMovementRequest), typeof(CreateMovementRequestExample))]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public async Task<IActionResult> CreateMovementAsync([FromBody] CreateMovementCommand command)
-        => await ExecuteAsync(async () => await _mediatorService.Send(command), HttpStatusCode.NoContent);
+    public async Task<IActionResult> CreateMovementAsync([FromBody] CreateMovementRequest request)
+        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateMovementCommand
+        {
+            UserId = UserId,
+            AccountNumber = request.AccountNumber,
+            MovementType = request.MovementType,
+            Amount = request.Amount,
+            RequestId = request.RequestId
+        }), HttpStatusCode.NoContent);
 
     /// <summary>
     /// api/movements/balances.

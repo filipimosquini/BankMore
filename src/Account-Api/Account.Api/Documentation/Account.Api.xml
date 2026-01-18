@@ -144,7 +144,7 @@
             <param name="httpStatusCode">The response code.</param>
             <returns></returns>
         </member>
-        <member name="M:Account.Api.Controllers.MovementController.CreateMovementAsync(Account.Application.Movement.Commands.CreateMovement.CreateMovementCommand)">
+        <member name="M:Account.Api.Controllers.MovementController.CreateMovementAsync(Account.Api.Controllers.Requests.CreateMovementRequest)">
             <summary>
             api/movements.
             </summary>
@@ -176,6 +176,11 @@
             <response code="404">Not Found
             <ul>
                 <li>NotFound.Account</li>
+            </ul>
+            </response>
+            <response code="409"> Conflict
+            <ul>
+                <li>Conflict.OnlyCreditMovementAccepted</li>
             </ul>
             </response>
             <response code="500">InternalServerError
@@ -220,6 +225,31 @@
             <li> Error.Unexpected </li>
             </ul>
             </response>
+        </member>
+        <member name="P:Account.Api.Controllers.Requests.CreateMovementRequest.RequestId">
+            <summary>
+            The request Id used for idempotency verification.
+            </summary>
+            <example>25561a63-fe01-41fb-bb97-87e4a9b64ac1</example>
+        </member>
+        <member name="P:Account.Api.Controllers.Requests.CreateMovementRequest.AccountNumber">
+            <summary>
+            The bank account number
+            </summary>
+            <example>123</example>
+        </member>
+        <member name="P:Account.Api.Controllers.Requests.CreateMovementRequest.Amount">
+            <summary>
+            The amount of bank movement
+            </summary>
+            <example>300</example>
+        </member>
+        <member name="P:Account.Api.Controllers.Requests.CreateMovementRequest.MovementType">
+            <summary>
+            The Movement Types.
+            The accepted values is [C] C or [D] D
+            </summary>
+            <example>C</example>
         </member>
     </members>
 </doc>

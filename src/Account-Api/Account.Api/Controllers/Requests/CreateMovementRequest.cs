@@ -1,9 +1,8 @@
 ﻿using Account.Core.MovementAggregate.Enumerators;
-using MediatR;
 
-namespace Account.Application.Movement.Commands.CreateMovement;
+namespace Account.Api.Controllers.Requests;
 
-public class CreateMovementCommand() : IRequest<Unit>
+public class CreateMovementRequest
 {
     /// <summary>
     /// The request Id used for idempotency verification.
@@ -29,10 +28,4 @@ public class CreateMovementCommand() : IRequest<Unit>
     /// </summary>
     /// <example>C</example>
     public MovementTypeEnum MovementType { get; set; }
-
-    /// <summary>
-    /// The user Id represents user.
-    /// </summary>
-    /// <example>25561a63-fe01-41fb-bb97-87e4a9b64ac1</example>
-    public string UserId { get; set; }
 }

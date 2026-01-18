@@ -126,19 +126,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMovementCommand"
+                "$ref": "#/components/schemas/CreateMovementRequest"
               },
               "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMovementCommand"
+                "$ref": "#/components/schemas/CreateMovementRequest"
               },
               "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMovementCommand"
+                "$ref": "#/components/schemas/CreateMovementRequest"
               },
               "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
             }
@@ -156,6 +156,9 @@
           },
           "404": {
             "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
+          },
+          "409": {
+            "description": "Conflict\r\n           <ul><li>Conflict.OnlyCreditMovementAccepted</li></ul>"
           },
           "500": {
             "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
@@ -255,20 +258,26 @@
         },
         "additionalProperties": false
       },
-      "CreateMovementCommand": {
+      "CreateMovementRequest": {
         "type": "object",
         "properties": {
           "requestId": {
             "type": "string",
-            "nullable": true
+            "description": "The request Id used for idempotency verification.",
+            "nullable": true,
+            "example": "25561a63-fe01-41fb-bb97-87e4a9b64ac1"
           },
           "accountNumber": {
             "type": "integer",
-            "format": "int32"
+            "description": "The bank account number",
+            "format": "int32",
+            "example": 123
           },
           "amount": {
             "type": "number",
-            "format": "double"
+            "description": "The amount of bank movement",
+            "format": "double",
+            "example": 300
           },
           "movementType": {
             "$ref": "#/components/schemas/MovementTypeEnum"

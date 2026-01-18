@@ -109,6 +109,17 @@
           }
         }
       ]
+    },
+    {
+      "Key": "ONLY_MOVEMENT_CREDIT_ACCEPTED",
+      "values": [
+        {
+          "value": {
+            "code": "Conflict.OnlyCreditMovementAccepted",
+            "message": "Only movement type credit are accepted"
+          }
+        }
+      ]
     }
   ]
 }

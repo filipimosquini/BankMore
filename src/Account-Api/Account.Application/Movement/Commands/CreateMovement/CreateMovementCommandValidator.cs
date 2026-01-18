@@ -1,5 +1,4 @@
-﻿using Account.Core.MovementAggregate.Enumerators;
-using FluentValidation;
+﻿using FluentValidation;
 using System;
 
 namespace Account.Application.Movement.Commands.CreateMovement;
@@ -23,11 +22,12 @@ public class CreateMovementCommandValidator : AbstractValidator<CreateMovementCo
         RuleFor(x => x.MovementType)
             .IsInEnum()
             .WithErrorCode("INVALID_TYPE");
+
+        RuleFor(x => x.UserId)
+            .NotEmpty().WithErrorCode("USER_IS_REQUIRED")
+            .NotNull().WithErrorCode("USER_IS_REQUIRED");
     }
 
     private bool BeValidId(string id)
         => Guid.TryParse(id, out _);
-
-    private bool BePresentInEnum(string movementType)
-        => Enum.IsDefined(typeof(MovementTypeEnum), movementType);
 }

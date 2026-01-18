@@ -1,5 +1,8 @@
-﻿using Account.Application.Services;
+﻿using System;
+using Account.Application.Services;
+using Account.Core.MovementAggregate.Enumerators;
 using Account.Core.MovementAggregate.Repositories;
+using Account.Infrastructure.CrossCutting.Exceptions;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +15,13 @@ public class CreateMovementCommandHandler(IAccountService accountService, IMovem
     public async Task<Unit> Handle(CreateMovementCommand request, CancellationToken cancellationToken)
     {
         var account = await accountService.ValidateAccountAsync(request.AccountNumber);
+
+        var accountFromLoggedUser = await accountService.ValidateAccountAsync(Guid.Parse(request.UserId));
+
+        if (account.Number != accountFromLoggedUser.Number && request.MovementType == MovementTypeEnum.D)
+        {
+            throw new OnlyCreditMovementAcceptedConflictExcepton();
+        }
 
         var movement =
             new Core.MovementAggregate.Movement(request.MovementType, request.Amount, account.Id);

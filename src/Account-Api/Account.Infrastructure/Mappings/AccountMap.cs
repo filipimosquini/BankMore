@@ -42,7 +42,7 @@ public class AccountMap : IEntityTypeConfiguration<Core.AccountAggregate.Account
             .HasMaxLength(32)
             .HasConversion(
                 v => v.ToString("N"),
-                v => Guid.ParseExact(v, "N")); ;
+                v => Guid.ParseExact(v, "N"));
 
         builder.HasMany(e => e.Movements)
             .WithOne(e => e.Account)

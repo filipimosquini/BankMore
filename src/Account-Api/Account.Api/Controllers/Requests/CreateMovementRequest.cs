@@ -5,12 +5,6 @@ namespace Account.Api.Controllers.Requests;
 public class CreateMovementRequest
 {
     /// <summary>
-    /// The request Id used for idempotency verification.
-    /// </summary>
-    /// <example>25561a63-fe01-41fb-bb97-87e4a9b64ac1</example>
-    public string RequestId { get; set; }
-
-    /// <summary>
     /// The bank account number
     /// </summary>
     /// <example>123</example>

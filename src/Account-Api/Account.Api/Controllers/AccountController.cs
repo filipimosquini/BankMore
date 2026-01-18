@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -15,12 +16,8 @@ namespace Account.Api.Controllers;
 
 [Route("api/accounts")]
 [ApiController]
-public class AccountController : BaseController<AccountController>
+public class AccountController(ILoggerFactory loggerFactory, IMediator mediatorService) : BaseController<AccountController>(loggerFactory, mediatorService)
 {
-    public AccountController(ILoggerFactory loggerFactory, IMediator mediatorService) : base(loggerFactory, mediatorService)
-    {
-    }
-
     /// <summary>
     /// api/accounts.
     /// </summary>
@@ -49,17 +46,28 @@ public class AccountController : BaseController<AccountController>
     /// </response> 
     /// <response code="403"> Forbidden
     /// </response>
+    /// <response code="409"> Conflict
+    /// <ul>
+    ///     <li>Idempotency.InProgress</li>
+    ///     <li>Idempotency.KeyReuse</li>
+    /// </ul>
+    /// </response>
     /// <response code="500"> InternalServerError
     /// <ul>
     ///     <li>Error.Unexpected</li>
+    /// </ul>
+    /// </response>
+    /// <response code="503"> ServiceUnavailable
+    /// <ul>
+    ///     <li>Idempotency.Unavailable</li>
     /// </ul>
     /// </response>
     [HttpPost]
     [Authorize]
     [SwaggerRequestExample(typeof(CreateAccountRequest), typeof(CreateAccountRequestExample))]
     [ProducesResponseType(typeof(CreateAccountDto), (int)HttpStatusCode.Created)]
-    public async Task<IActionResult> CreateAccountAsync([FromBody] CreateAccountRequest request)
-        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateAccountCommand(request.Holder, UserId)), HttpStatusCode.Created);
+    public async Task<IActionResult> CreateAccountAsync([FromBody] CreateAccountRequest request, [FromHeader(Name = "Idempotency-Key")] Guid requestId)
+        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateAccountCommand(requestId, request.Holder, UserId)), HttpStatusCode.Created);
 
     /// <summary>
     /// api/accounts/deactivate.

@@ -21,6 +21,16 @@
         ],
         "summary": "api/accounts. (Auth)",
         "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method create an account. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -73,8 +83,14 @@
           "403": {
             "description": "Forbidden"
           },
+          "409": {
+            "description": "Conflict\r\n           <ul><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li></ul>"
+          },
           "500": {
             "description": "InternalServerError\r\n           <ul><li>Error.Unexpected</li></ul>"
+          },
+          "503": {
+            "description": "ServiceUnavailable\r\n           <ul><li>Idempotency.Unavailable</li></ul>"
           }
         },
         "security": [
@@ -122,25 +138,35 @@
         ],
         "summary": "api/movements. (Auth)",
         "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method create a movement. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateMovementRequest"
               },
-              "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
+              "example": {"accountNumber":123,"amount":300,"movementType":67}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateMovementRequest"
               },
-              "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
+              "example": {"accountNumber":123,"amount":300,"movementType":67}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateMovementRequest"
               },
-              "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
+              "example": {"accountNumber":123,"amount":300,"movementType":67}
             }
           }
         },
@@ -158,10 +184,13 @@
             "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
           },
           "409": {
-            "description": "Conflict\r\n           <ul><li>Conflict.OnlyCreditMovementAccepted</li></ul>"
+            "description": "Conflict\r\n           <ul><li>Conflict.OnlyCreditMovementAccepted</li><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li></ul>"
           },
           "500": {
             "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
+          },
+          "503": {
+            "description": "ServiceUnavailable\r\n           <ul><li>Idempotency.Unavailable</li></ul>"
           },
           "403": {
             "description": "Forbidden"
@@ -180,7 +209,7 @@
           "Movement"
         ],
         "summary": "api/movements/balances. (Auth)",
-        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method get a balance result. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Not Exists. \r\n</p>",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method get a balance result. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
         "parameters": [
           {
             "name": "AccountNumber",
@@ -261,12 +290,6 @@
       "CreateMovementRequest": {
         "type": "object",
         "properties": {
-          "requestId": {
-            "type": "string",
-            "description": "The request Id used for idempotency verification.",
-            "nullable": true,
-            "example": "25561a63-fe01-41fb-bb97-87e4a9b64ac1"
-          },
           "accountNumber": {
             "type": "integer",
             "description": "The bank account number",

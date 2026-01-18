@@ -9,7 +9,6 @@ public class CreateMovementRequestExample : IExamplesProvider<CreateMovementRequ
     public CreateMovementRequest GetExamples()
         => new()
         {
-            RequestId = "25561a63-fe01-41fb-bb97-87e4a9b64ac1",
             AccountNumber = 123,
             Amount = 300,
             MovementType = MovementTypeEnum.C

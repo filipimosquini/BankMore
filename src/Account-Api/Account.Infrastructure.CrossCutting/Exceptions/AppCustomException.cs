@@ -11,4 +11,9 @@ public class AppCustomException : Exception
     {
         HttpStatusCode = httpStatusCode;
     }
+
+    public AppCustomException(string message, HttpStatusCode httpStatusCode, Exception innerException) : base(message, innerException)
+    {
+        HttpStatusCode = httpStatusCode;
+    }
 }

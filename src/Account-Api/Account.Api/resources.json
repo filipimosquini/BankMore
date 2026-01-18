@@ -12,6 +12,39 @@
       ]
     },
     {
+      "Key": "IDEMPOTENCY_IN_PROGRESS",
+      "values": [
+        {
+          "value": {
+            "code": "Idempotency.InProgress",
+            "message": "This request is already being processed. Please retry."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "IDEMPOTENCY_KEY_REUSE",
+      "values": [
+        {
+          "value": {
+            "code": "Idempotency.KeyReuse",
+            "message": "Idempotency key was reused with a different payload."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "IDEMPOTENCY_UNAVAILABLE",
+      "values": [
+        {
+          "value": {
+            "code": "Idempotency.Unavailable",
+            "message": "Idempotency service is unavailable. Please retry later."
+          }
+        }
+      ]
+    },
+    {
       "Key": "HOLDER_IS_REQUIRED",
       "values": [
         {

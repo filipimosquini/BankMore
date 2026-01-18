@@ -1,9 +1,9 @@
-﻿using System;
-using Account.Application.Services;
+﻿using Account.Application.Services;
 using Account.Core.MovementAggregate.Enumerators;
 using Account.Core.MovementAggregate.Repositories;
 using Account.Infrastructure.CrossCutting.Exceptions;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,7 +28,7 @@ public class CreateMovementCommandHandler(IAccountService accountService, IMovem
 
         await movementRepository.AddAsync(movement);
 
-        await movementRepository.UnitOfWork.Commit();
+        await movementRepository.UnitOfWork.Commit(cancellationToken);
 
         return Unit.Value;
     }

@@ -1,11 +1,12 @@
-﻿using Account.Core.Commom.Repositories.Bases;
-using Account.Core.MovementAggregate;
+﻿using Account.Core.MovementAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Account.Core.Common.Repositories.Bases;
 
 namespace Account.Infrastructure.Contexts;
 
@@ -50,9 +51,9 @@ public class DatabaseContext(IConfiguration configuration) : DbContext, IUnitOfW
         return !idsDeTodasAsMigrations.Except(idsDasMigrationJaExecutadas).Any();
     }
 
-    public async Task<bool> Commit()
+    public async Task<bool> Commit(CancellationToken cancellationToken)
     {
-        if (await base.SaveChangesAsync() <= 0)
+        if (await base.SaveChangesAsync(cancellationToken) <= 0)
             return false;
 
         return true;

@@ -11,6 +11,11 @@ public abstract class BaseEntity
         Id = Guid.NewGuid();
     }
 
+    protected BaseEntity(Guid id)
+    {
+        Id = id;
+    }
+
     public override bool Equals(object obj)
     {
         var compareTo = obj as BaseEntity;

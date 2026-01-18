@@ -1,7 +1,7 @@
-﻿using Account.Core.Commom.Repositories.Bases;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Account.Core.Common.Repositories.Bases;
 
 namespace Account.Infrastructure.Repositories.Bases;
 

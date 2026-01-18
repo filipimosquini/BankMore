@@ -15,7 +15,7 @@ public class CreateAccountCommandHandler(IAccountRepository accountRepository) :
 
         await accountRepository.AddAsync(account);
 
-        await accountRepository.UnitOfWork.Commit();
+        await accountRepository.UnitOfWork.Commit(cancellationToken);
 
         return new CreateAccountDto
         {

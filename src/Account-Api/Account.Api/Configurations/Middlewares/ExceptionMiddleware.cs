@@ -1,7 +1,7 @@
-﻿using Account.Infrastructure.CrossCutting.Extensions;
+﻿using Account.Infrastructure.CrossCutting.Exceptions;
+using Account.Infrastructure.CrossCutting.Extensions;
 using Account.Infrastructure.CrossCutting.ResourcesCatalog;
 using Account.Infrastructure.CrossCutting.ResourcesCatalog.Models;
-using Account.Infrastructure.CrossCutting.Exceptions;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Account.Infrastructure.CrossCutting.Exceptions;
 
 namespace Account.Api.Configurations.Middlewares;
 
@@ -42,6 +41,10 @@ public class ExceptionMiddleware
         {
             await HandleValidationException(context.Response, exception);
         }
+        catch (IdempotencyNotificationException exception)
+        {
+            await HandleIdempotencyNotificationException(context.Response, exception);
+        }
         catch (Exception exception)
         {
             await HandleFatalError(context.Response, exception);
@@ -51,6 +54,7 @@ public class ExceptionMiddleware
     /// <summary>
     /// Handle the exception result when AppCustomException occurs.
     /// </summary>
+    /// <param name="response"> The response. </param>
     /// <param name="exception"> The exception. </param>
     /// <returns></returns>
     private Task HandleAppCustomException(HttpResponse response, AppCustomException exception)
@@ -88,9 +92,10 @@ public class ExceptionMiddleware
         return response.WriteAsync(new { notifications = _notifications }.ToJson());
     }
 
-   /// <summary>
+    /// <summary>
     /// Handle the exception result when ValidationException occurs.
     /// </summary>
+    /// <param name="response"> The response. </param>
     /// <param name="exception"> The exception. </param>
     /// <returns></returns>
     private Task HandleValidationException(HttpResponse response, ValidationException exception)
@@ -128,9 +133,38 @@ public class ExceptionMiddleware
         return response.WriteAsync(new { notifications = notifications }.ToJson());
     }
 
+
+    /// <summary>
+    /// Handle the exception result when IdempotencyNotificationException occurs.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="exception"></param>
+    /// <returns></returns>
+    private Task HandleIdempotencyNotificationException(HttpResponse response, IdempotencyNotificationException exception)
+    {
+        _logger.LogError(new
+        {
+            timestamp = DateTime.UtcNow,
+            correlation = Guid.NewGuid().ToString(),
+            StackTrace = exception.StackTrace
+        }.ToJson());
+
+        response.ContentType = "application/json";
+
+        if (exception.Envelope.Notifications != null && exception.Envelope.Notifications.Count == 0)
+        {
+            response.StatusCode = (int) HttpStatusCode.InternalServerError;
+            return response.WriteAsync(new { notifications = _resourceCatalog.UnexpectedError() }.ToJson());
+        }
+
+        response.StatusCode = (int) exception.StatusCode;
+        return response.WriteAsync(new { notifications = exception.Envelope.Notifications }.ToJson());
+    }
+
     /// <summary>
     /// Handle the exception result when fatal error occurs.
     /// </summary>
+    /// <param name="response"> The response. </param>
     /// <param name="exception"> The exception. </param>
     /// <returns></returns>
     private Task HandleFatalError(HttpResponse response, Exception exception)

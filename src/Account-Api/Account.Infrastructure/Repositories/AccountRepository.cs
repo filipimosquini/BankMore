@@ -7,21 +7,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Account.Infrastructure.Repositories;
 
-public class AccountRepository : BaseRepository<Core.AccountAggregate.Account>, IAccountRepository
+public class AccountRepository(DatabaseContext context) : BaseRepository<Core.AccountAggregate.Account>(context), IAccountRepository
 {
-    private readonly DatabaseContext _context;
-
-    public AccountRepository(DatabaseContext context) : base(context)
-    {
-        _context = context;
-    }
-
     public async Task<Core.AccountAggregate.Account> GetById(Guid id)
-        => await _context.Accounts.FirstOrDefaultAsync(x => x.Id == id);
+        => await context.Accounts.FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task<Core.AccountAggregate.Account> GetByUser(Guid userId)
-        => await _context.Accounts.FirstOrDefaultAsync(x => x.UserId == userId);
+        => await context.Accounts.FirstOrDefaultAsync(x => x.UserId == userId);
 
     public async Task<Core.AccountAggregate.Account> GetByAccountNumber(int accountNumber)
-        => await _context.Accounts.FirstOrDefaultAsync(x => x.Number == accountNumber);
+        => await context.Accounts.FirstOrDefaultAsync(x => x.Number == accountNumber);
 }

@@ -8,17 +8,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Filters;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace Account.Api.Controllers;
 
 [Route("api/movements")]
-public class MovementController : BaseController<MovementController>
+public class MovementController(ILoggerFactory loggerFactory, IMediator mediatorService) : BaseController<MovementController>(loggerFactory, mediatorService)
 {
-    public MovementController(ILoggerFactory loggerFactory, IMediator mediatorService) : base(loggerFactory, mediatorService)
-    {
-    }
     /// <summary>
     /// api/movements.
     /// </summary>
@@ -55,6 +53,8 @@ public class MovementController : BaseController<MovementController>
     /// <response code="409"> Conflict
     /// <ul>
     ///     <li>Conflict.OnlyCreditMovementAccepted</li>
+    ///     <li>Idempotency.InProgress</li>
+    ///     <li>Idempotency.KeyReuse</li>
     /// </ul>
     /// </response>
     /// <response code="500">InternalServerError
@@ -62,19 +62,17 @@ public class MovementController : BaseController<MovementController>
     ///     <li>Error.Unexpected</li>
     /// </ul>
     /// </response>
+    /// <response code="503"> ServiceUnavailable
+    /// <ul>
+    ///     <li>Idempotency.Unavailable</li>
+    /// </ul>
+    /// </response>
     [HttpPost]
     [Authorize]
     [SwaggerRequestExample(typeof(CreateMovementRequest), typeof(CreateMovementRequestExample))]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public async Task<IActionResult> CreateMovementAsync([FromBody] CreateMovementRequest request)
-        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateMovementCommand
-        {
-            UserId = UserId,
-            AccountNumber = request.AccountNumber,
-            MovementType = request.MovementType,
-            Amount = request.Amount,
-            RequestId = request.RequestId
-        }), HttpStatusCode.NoContent);
+    public async Task<IActionResult> CreateMovementAsync([FromBody] CreateMovementRequest request, [FromHeader(Name = "Idempotency-Key")] Guid requestId)
+        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateMovementCommand(requestId, request.AccountNumber, request.Amount, request.MovementType, UserId)), HttpStatusCode.NoContent);
 
     /// <summary>
     /// api/movements/balances.
@@ -86,7 +84,7 @@ public class MovementController : BaseController<MovementController>
     /// </p>
     /// <p>
     /// <b> Requirements: </b><br />
-    /// Not Exists. <br />
+    /// Is required to be authenticated. <br />
     /// </p>
     /// </remarks>
     /// <response code="200"> OK </response>

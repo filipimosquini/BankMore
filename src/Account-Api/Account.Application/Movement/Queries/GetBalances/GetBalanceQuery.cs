@@ -3,11 +3,4 @@ using MediatR;
 
 namespace Account.Application.Movement.Queries.GetBalances;
 
-public class GetBalanceQuery : IRequest<GetBalanceQueryDto>
-{
-    /// <summary>
-    /// The bank account number
-    /// </summary>
-    /// <example>123</example>
-    public int AccountNumber { get; set; }
-}
+public record GetBalanceQuery(int AccountNumber) : IRequest<GetBalanceQueryDto>;

@@ -22,7 +22,7 @@ public class DeactivateAccountCommandHandler(IAccountRepository accountRepositor
 
         accountRepository.Update(account);
 
-        await accountRepository.UnitOfWork.Commit();
+        await accountRepository.UnitOfWork.Commit(cancellationToken);
 
         return Unit.Value;
     }

@@ -8,6 +8,7 @@
             <summary>
             Handle the exception result when AppCustomException occurs.
             </summary>
+            <param name="response"> The response. </param>
             <param name="exception"> The exception. </param>
             <returns></returns>
         </member>
@@ -15,17 +16,34 @@
             <summary>
             Handle the exception result when ValidationException occurs.
             </summary>
+            <param name="response"> The response. </param>
             <param name="exception"> The exception. </param>
+            <returns></returns>
+        </member>
+        <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleIdempotencyNotificationException(Microsoft.AspNetCore.Http.HttpResponse,Account.Infrastructure.CrossCutting.Exceptions.IdempotencyNotificationException)">
+            <summary>
+            Handle the exception result when IdempotencyNotificationException occurs.
+            </summary>
+            <param name="response"></param>
+            <param name="exception"></param>
             <returns></returns>
         </member>
         <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleFatalError(Microsoft.AspNetCore.Http.HttpResponse,System.Exception)">
             <summary>
             Handle the exception result when fatal error occurs.
             </summary>
+            <param name="response"> The response. </param>
             <param name="exception"> The exception. </param>
             <returns></returns>
         </member>
         <member name="T:Account.Api.Configurations.Validators.ValidatorBehavior`2">
+            <summary>
+            Validator behavior for mediator pipeline class.
+            </summary>
+            <typeparam name="TRequest"> The type of the request. </typeparam>
+            <typeparam name="TResponse"> The type of the response. </typeparam>
+        </member>
+        <member name="M:Account.Api.Configurations.Validators.ValidatorBehavior`2.#ctor(FluentValidation.IValidator{`0})">
             <summary>
             Validator behavior for mediator pipeline class.
             </summary>
@@ -42,7 +60,7 @@
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
         </member>
-        <member name="M:Account.Api.Controllers.AccountController.CreateAccountAsync(Account.Api.Controllers.Requests.CreateAccountRequest)">
+        <member name="M:Account.Api.Controllers.AccountController.CreateAccountAsync(Account.Api.Controllers.Requests.CreateAccountRequest,System.Guid)">
             <summary>
             api/accounts.
             </summary>
@@ -71,9 +89,20 @@
             </response> 
             <response code="403"> Forbidden
             </response>
+            <response code="409"> Conflict
+            <ul>
+                <li>Idempotency.InProgress</li>
+                <li>Idempotency.KeyReuse</li>
+            </ul>
+            </response>
             <response code="500"> InternalServerError
             <ul>
                 <li>Error.Unexpected</li>
+            </ul>
+            </response>
+            <response code="503"> ServiceUnavailable
+            <ul>
+                <li>Idempotency.Unavailable</li>
             </ul>
             </response>
         </member>
@@ -144,7 +173,7 @@
             <param name="httpStatusCode">The response code.</param>
             <returns></returns>
         </member>
-        <member name="M:Account.Api.Controllers.MovementController.CreateMovementAsync(Account.Api.Controllers.Requests.CreateMovementRequest)">
+        <member name="M:Account.Api.Controllers.MovementController.CreateMovementAsync(Account.Api.Controllers.Requests.CreateMovementRequest,System.Guid)">
             <summary>
             api/movements.
             </summary>
@@ -181,11 +210,18 @@
             <response code="409"> Conflict
             <ul>
                 <li>Conflict.OnlyCreditMovementAccepted</li>
+                <li>Idempotency.InProgress</li>
+                <li>Idempotency.KeyReuse</li>
             </ul>
             </response>
             <response code="500">InternalServerError
             <ul>
                 <li>Error.Unexpected</li>
+            </ul>
+            </response>
+            <response code="503"> ServiceUnavailable
+            <ul>
+                <li>Idempotency.Unavailable</li>
             </ul>
             </response>
         </member>
@@ -200,7 +236,7 @@
             </p>
             <p>
             <b> Requirements: </b><br />
-            Not Exists. <br />
+            Is required to be authenticated. <br />
             </p>
             </remarks>
             <response code="200"> OK </response>
@@ -225,12 +261,6 @@
             <li> Error.Unexpected </li>
             </ul>
             </response>
-        </member>
-        <member name="P:Account.Api.Controllers.Requests.CreateMovementRequest.RequestId">
-            <summary>
-            The request Id used for idempotency verification.
-            </summary>
-            <example>25561a63-fe01-41fb-bb97-87e4a9b64ac1</example>
         </member>
         <member name="P:Account.Api.Controllers.Requests.CreateMovementRequest.AccountNumber">
             <summary>

@@ -8,8 +8,8 @@ public class CreateMovementCommandValidator : AbstractValidator<CreateMovementCo
     public CreateMovementCommandValidator()
     {
         RuleFor(x => x.RequestId)
-            .Must(BeValidId)
-            .WithErrorCode("INVALID_REQUEST_ID");
+            .NotEmpty().WithErrorCode("INVALID_REQUEST_ID")
+            .NotNull().WithErrorCode("INVALID_REQUEST_ID");
 
         RuleFor(x => x.AccountNumber)
             .GreaterThan(0)

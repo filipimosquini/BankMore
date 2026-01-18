@@ -12,15 +12,8 @@ namespace Account.Api.Configurations.Validators;
 /// </summary>
 /// <typeparam name="TRequest"> The type of the request. </typeparam>
 /// <typeparam name="TResponse"> The type of the response. </typeparam>
-public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+public class ValidatorBehavior<TRequest, TResponse>(IValidator<TRequest> validator) : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
-    private readonly IValidator _validator;
-
-    public ValidatorBehavior(IValidator<TRequest> validator)
-    {
-        _validator = validator;
-    }
-
     /// <summary>
     /// Handles the request validations.
     /// </summary>
@@ -31,9 +24,9 @@ public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
     /// <exception cref="NotImplementedException"></exception>
     public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        if (_validator != null)
+        if (validator != null)
         {
-            var errors = _validator.Validate(new ValidationContext<TRequest>(request)).Errors;
+            var errors = validator.Validate(new ValidationContext<TRequest>(request)).Errors;
 
             if (errors.Any())
             {

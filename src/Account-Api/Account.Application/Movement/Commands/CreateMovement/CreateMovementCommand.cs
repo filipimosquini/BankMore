@@ -1,38 +1,8 @@
-﻿using Account.Core.MovementAggregate.Enumerators;
+﻿using Account.Core.Common.Indepotencies;
+using Account.Core.MovementAggregate.Enumerators;
 using MediatR;
+using System;
 
 namespace Account.Application.Movement.Commands.CreateMovement;
 
-public class CreateMovementCommand() : IRequest<Unit>
-{
-    /// <summary>
-    /// The request Id used for idempotency verification.
-    /// </summary>
-    /// <example>25561a63-fe01-41fb-bb97-87e4a9b64ac1</example>
-    public string RequestId { get; set; }
-
-    /// <summary>
-    /// The bank account number
-    /// </summary>
-    /// <example>123</example>
-    public int AccountNumber { get; set; }
-
-    /// <summary>
-    /// The amount of bank movement
-    /// </summary>
-    /// <example>300</example>
-    public decimal Amount { get; set; }
-
-    /// <summary>
-    /// The Movement Types.
-    /// The accepted values is [C] C or [D] D
-    /// </summary>
-    /// <example>C</example>
-    public MovementTypeEnum MovementType { get; set; }
-
-    /// <summary>
-    /// The user Id represents user.
-    /// </summary>
-    /// <example>25561a63-fe01-41fb-bb97-87e4a9b64ac1</example>
-    public string UserId { get; set; }
-}
+public record CreateMovementCommand(Guid RequestId, int AccountNumber, decimal Amount, MovementTypeEnum MovementType, string UserId) : IRequest<Unit>, IIdempotencyRequest;

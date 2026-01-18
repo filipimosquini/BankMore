@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System;
 
-namespace Authentication.Infrastructure.CrossCutting.Exceptions;
+namespace Account.Infrastructure.CrossCutting.Exceptions;
 
 public class AppCustomException : Exception
 {

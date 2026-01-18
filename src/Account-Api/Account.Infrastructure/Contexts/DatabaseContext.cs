@@ -1,4 +1,5 @@
-﻿using Account.Core.Repositories.Bases;
+﻿using Account.Core.Commom.Repositories.Bases;
+using Account.Core.MovementAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -10,6 +11,9 @@ namespace Account.Infrastructure.Contexts;
 
 public class DatabaseContext(IConfiguration configuration) : DbContext, IUnitOfWork
 {
+    public DbSet<Core.AccountAggregate.Account> Accounts { get; set; }
+    public DbSet<Movement> Movements { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -23,12 +27,6 @@ public class DatabaseContext(IConfiguration configuration) : DbContext, IUnitOfW
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
-                     e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
-        {
-            property.SetColumnType("varchar(100)");
-        }
-
         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
         {
             relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;

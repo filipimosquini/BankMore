@@ -4,7 +4,7 @@
         <name>Account.Api</name>
     </assembly>
     <members>
-        <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Authentication.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
+        <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Account.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
             <summary>
             Handle the exception result when AppCustomException occurs.
             </summary>
@@ -41,6 +41,69 @@
             <param name="cancellationToken"> The cancellation token. </param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:Account.Api.Controllers.AccountController.CreateAccountAsync(Account.Api.Controllers.Requests.CreateAccountRequest)">
+            <summary>
+            api/accounts.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method create an account. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Is required to be authenticated. <br />
+            </p>
+            </remarks>
+            <response code="200">OK</response>
+            <response code="400"> Bad Request
+            <ul>
+                <li>Document.IsInvalid</li>
+                <li>Document.IsRequired</li>
+                <li>Document.MustBeInformed</li>
+            </ul>
+            </response> 
+            <response code="401"> Unauthorized
+            <ul>
+                <li>Blocked.UserUnauthorized</li>
+            </ul>
+            </response> 
+            <response code="403"> Forbidden
+            </response>
+            <response code="500"> InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
+        </member>
+        <member name="M:Account.Api.Controllers.AccountController.DeactivateAccountAsync(Account.Application.Account.Commands.DeactivateAccount.DeactivateAccountCommand)">
+            <summary>
+            api/accounts/deactivate.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method deactivate an account. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Is required to be authenticated. <br />
+            </p>
+            </remarks>
+            <response code="204">No Content</response>
+            <response code="401"> Unauthorized
+            </response> 
+            <response code="404"> Not Found
+            <ul>
+                <li>Account.NotFound</li>
+            </ul>
+            </response>
+            <response code="500"> InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
         </member>
         <member name="T:Account.Api.Controllers.BaseController`1">
             <summary>

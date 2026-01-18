@@ -4,4 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Account.Infrastructure.CrossCutting\Account.Infrastructure.CrossCutting.csproj" />
+  </ItemGroup>
+
 </Project>

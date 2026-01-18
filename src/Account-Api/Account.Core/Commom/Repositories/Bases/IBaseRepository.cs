@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Account.Core.Repositories.Bases;
+namespace Account.Core.Commom.Repositories.Bases;
 
 public interface IBaseRepository<TEntity> where TEntity : class
 {

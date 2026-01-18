@@ -1,7 +1,7 @@
 ﻿using Account.Infrastructure.CrossCutting.Extensions;
 using Account.Infrastructure.CrossCutting.ResourcesCatalog;
 using Account.Infrastructure.CrossCutting.ResourcesCatalog.Models;
-using Authentication.Infrastructure.CrossCutting.Exceptions;
+using Account.Infrastructure.CrossCutting.Exceptions;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Account.Infrastructure.CrossCutting.Exceptions;
 
 namespace Account.Api.Configurations.Middlewares;
 

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Account.Core.Repositories.Bases;
+namespace Account.Core.Commom.Repositories.Bases;
 
 public interface IUnitOfWork
 {

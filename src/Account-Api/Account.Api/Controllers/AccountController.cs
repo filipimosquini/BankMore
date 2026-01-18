@@ -1,0 +1,94 @@
+﻿using Account.Api.Controllers.Requests;
+using Account.Api.Documentation.Swagger.Examples;
+using Account.Application.Account.Commands.CreateAccount;
+using Account.Application.Account.Commands.DeactivateAccount;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Filters;
+using System.Net;
+using System.Threading.Tasks;
+
+namespace Account.Api.Controllers;
+
+[Route("api/accounts")]
+[ApiController]
+public class AccountController : BaseController<AccountController>
+{
+    public AccountController(ILoggerFactory loggerFactory, IMediator mediatorService) : base(loggerFactory, mediatorService)
+    {
+    }
+
+    /// <summary>
+    /// api/accounts.
+    /// </summary>
+    /// <remarks>
+    /// <p>
+    /// <b> Description: </b><br />
+    /// This method create an account. <br />
+    /// </p>
+    /// <p>
+    /// <b> Requirements: </b><br />
+    /// Is required to be authenticated. <br />
+    /// </p>
+    /// </remarks>
+    /// <response code="200">OK</response>
+    /// <response code="400"> Bad Request
+    /// <ul>
+    ///     <li>Document.IsInvalid</li>
+    ///     <li>Document.IsRequired</li>
+    ///     <li>Document.MustBeInformed</li>
+    /// </ul>
+    /// </response> 
+    /// <response code="401"> Unauthorized
+    /// <ul>
+    ///     <li>Blocked.UserUnauthorized</li>
+    /// </ul>
+    /// </response> 
+    /// <response code="403"> Forbidden
+    /// </response>
+    /// <response code="500"> InternalServerError
+    /// <ul>
+    ///     <li>Error.Unexpected</li>
+    /// </ul>
+    /// </response>
+    [HttpPost]
+    [Authorize]
+    [SwaggerRequestExample(typeof(CreateAccountRequest), typeof(CreateAccountRequestExample))]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> CreateAccountAsync([FromBody] CreateAccountRequest request)
+        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateAccountCommand(request.Cpf, UserId)), HttpStatusCode.OK);
+
+    /// <summary>
+    /// api/accounts/deactivate.
+    /// </summary>
+    /// <remarks>
+    /// <p>
+    /// <b> Description: </b><br />
+    /// This method deactivate an account. <br />
+    /// </p>
+    /// <p>
+    /// <b> Requirements: </b><br />
+    /// Is required to be authenticated. <br />
+    /// </p>
+    /// </remarks>
+    /// <response code="204">No Content</response>
+    /// <response code="401"> Unauthorized
+    /// </response> 
+    /// <response code="404"> Not Found
+    /// <ul>
+    ///     <li>Account.NotFound</li>
+    /// </ul>
+    /// </response>
+    /// <response code="500"> InternalServerError
+    /// <ul>
+    ///     <li>Error.Unexpected</li>
+    /// </ul>
+    /// </response>
+    [HttpPatch("deactivate")]
+    [Authorize]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    public async Task<IActionResult> DeactivateAccountAsync([FromBody] DeactivateAccountCommand command)
+        => await ExecuteAsync(async () => await _mediatorService.Send(command), HttpStatusCode.NoContent);
+}

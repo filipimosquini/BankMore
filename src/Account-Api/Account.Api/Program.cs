@@ -23,6 +23,7 @@ builder.Services.AddControllers();
 // Configurations
 builder.Services
     .AddDbContext(builder.Configuration)
+    .AddRepositoriesDependencies()
     .AddingCors()
     .AddingResponseCompression()
     .AddingAuthentication(builder.Configuration)

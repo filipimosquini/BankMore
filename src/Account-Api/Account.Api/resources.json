@@ -11,5 +11,60 @@
         }
       ]
     },
+    {
+      "Key": "DOCUMENT_IS_INVALID",
+      "values": [
+        {
+          "value": {
+            "code": "Documnent.IsInvalid",
+            "message": "The document is invalid."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "DOCUMENT_IS_REQUIRED",
+      "values": [
+        {
+          "value": {
+            "code": "Documnent.IsRequired",
+            "message": "The document is required."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "DOCUMENT_MUST_BE_INFORMED",
+      "values": [
+        {
+          "value": {
+            "code": "Documnent.MustBeInformed",
+            "message": "The document must be informed."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "USER_IS_REQUIRED",
+      "values": [
+        {
+          "value": {
+            "code": "User.IsRequired",
+            "message": "The user is required."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "ACCOUNT_NOT_FOUND",
+      "values": [
+        {
+          "value": {
+            "code": "Account.NotFound",
+            "message": "The account is not found."
+          }
+        }
+      ]
+    },
   ]
 }

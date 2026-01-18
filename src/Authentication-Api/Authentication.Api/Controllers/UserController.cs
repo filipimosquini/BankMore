@@ -34,6 +34,11 @@ public class UserController : BaseController<UserController>
     /// </p>
     /// </remarks>
     /// <response code="200">OK</response>
+    /// <response code="401"> Unauthorized
+    /// <ul>
+    ///     <li>Blocked.UserUnauthorized</li>
+    /// </ul>
+    /// </response> 
     /// <response code="404"> Not Found
     /// <ul>
     ///     <li>User.NotFound</li>

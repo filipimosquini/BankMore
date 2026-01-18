@@ -24,9 +24,9 @@ BEGIN
   ----------------------------------------------------------------------
   ensure_table('TRANSFER_BANK','TRANSFERENCIA', q'[
     CREATE TABLE TRANSFER_BANK.transferencia (
-      idtransferencia          VARCHAR2(37) NOT NULL,
-      idcontacorrente_origem   VARCHAR2(37) NOT NULL,
-      idcontacorrente_destino  VARCHAR2(37) NOT NULL,
+      idtransferencia          VARCHAR2(32) NOT NULL,
+      idcontacorrente_origem   VARCHAR2(32) NOT NULL,
+      idcontacorrente_destino  VARCHAR2(32) NOT NULL,
       datamovimento   		   DATE         NOT NULL,
       valor                    NUMBER(18,2) NOT NULL,
       CONSTRAINT pk_transferencia PRIMARY KEY (idtransferencia)
@@ -52,7 +52,7 @@ BEGIN
   ----------------------------------------------------------------------
   ensure_table('TRANSFER_BANK','IDEMPOTENCIA', q'[
     CREATE TABLE TRANSFER_BANK.idempotencia (
-      chave_idempotencia VARCHAR2(37) NOT NULL,
+      chave_idempotencia VARCHAR2(32) NOT NULL,
       requisicao         VARCHAR2(1000),
       resultado          VARCHAR2(1000),
       CONSTRAINT pk_trf_idempotencia PRIMARY KEY (chave_idempotencia)

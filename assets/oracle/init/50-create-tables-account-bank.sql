@@ -24,12 +24,11 @@ BEGIN
   ----------------------------------------------------------------------
   ensure_table('ACCOUNT_BANK','CONTACORRENTE', q'[
     CREATE TABLE ACCOUNT_BANK.contacorrente (
-      idcontacorrente VARCHAR2(37) NOT NULL,
-      numero          NUMBER(10)   NOT NULL,
-      nome            VARCHAR2(100) NOT NULL,
+      idcontacorrente VARCHAR2(32)  NOT NULL,
+      numero          NUMBER(10)    NOT NULL,
+      documento       VARCHAR2(100) NOT NULL,
       ativo           NUMBER(1) DEFAULT 1 NOT NULL,
-      senha           VARCHAR2(100) NOT NULL,
-      idusuario		  VARCHAR2(37) NOT NULL,
+      idusuario		  VARCHAR2(32) 	NOT NULL,
       CONSTRAINT pk_contacorrente PRIMARY KEY (idcontacorrente),
       CONSTRAINT uq_contacorrente_numero UNIQUE (numero),
       CONSTRAINT ck_contacorrente_ativo CHECK (ativo IN (0,1))
@@ -41,8 +40,8 @@ BEGIN
   ----------------------------------------------------------------------
   ensure_table('ACCOUNT_BANK','MOVIMENTO', q'[
     CREATE TABLE ACCOUNT_BANK.movimento (
-      idmovimento     VARCHAR2(37) NOT NULL,
-      idcontacorrente VARCHAR2(37) NOT NULL,
+      idmovimento     VARCHAR2(32) NOT NULL,
+      idcontacorrente VARCHAR2(32) NOT NULL,
       datamovimento   DATE         NOT NULL,
       tipomovimento   CHAR(1)      NOT NULL,
       valor           NUMBER(18,2) NOT NULL,
@@ -58,7 +57,7 @@ BEGIN
   ----------------------------------------------------------------------
   ensure_table('ACCOUNT_BANK','IDEMPOTENCIA', q'[
     CREATE TABLE ACCOUNT_BANK.idempotencia (
-      chave_idempotencia VARCHAR2(37) NOT NULL,
+      chave_idempotencia VARCHAR2(32) NOT NULL,
       requisicao         VARCHAR2(1000),
       resultado          VARCHAR2(1000),
       CONSTRAINT pk_idempotencia PRIMARY KEY (chave_idempotencia)

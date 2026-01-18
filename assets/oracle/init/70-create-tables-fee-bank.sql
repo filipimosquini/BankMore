@@ -24,8 +24,8 @@ BEGIN
   ----------------------------------------------------------------------
   ensure_table('FEE_BANK','TARIFA', q'[
     CREATE TABLE FEE_BANK.tarifa (
-      idtarifa        VARCHAR2(37) NOT NULL,
-      idcontacorrente VARCHAR2(37) NOT NULL,
+      idtarifa        VARCHAR2(32) NOT NULL,
+      idcontacorrente VARCHAR2(32) NOT NULL,
       datamovimento   VARCHAR2(25) NOT NULL,
       valor           NUMBER(18,2) NOT NULL,
       CONSTRAINT pk_tarifa PRIMARY KEY (idtarifa)

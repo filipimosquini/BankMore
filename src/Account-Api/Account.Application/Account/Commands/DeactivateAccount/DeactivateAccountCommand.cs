@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Account.Application.Account.Commands.DeactivateAccount;
 
-public record DeactivateAccountCommand(string AccountId) : IRequest<Unit>;
+public record DeactivateAccountCommand(string UserId) : IRequest<Unit>;

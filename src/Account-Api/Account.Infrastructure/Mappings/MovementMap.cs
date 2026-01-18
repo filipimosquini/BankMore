@@ -46,7 +46,7 @@ public class MovementMap : IEntityTypeConfiguration<Movement>
             .HasComment("Tipo do movimento (C)redito ou (D)ebito")
             .HasConversion(new MovementTypeConverter());
 
-        builder.Property(e => e.Value)
+        builder.Property(e => e.Amount)
             .HasColumnName("VALOR")
             .HasPrecision(18, 2)
             .HasComment("Valor movimentado");
@@ -54,5 +54,5 @@ public class MovementMap : IEntityTypeConfiguration<Movement>
 }
 
 internal class MovementTypeConverter() : ValueConverter<MovementTypeEnum, char>(
-    v => v == MovementTypeEnum.Credit ? 'C' : 'D',
-    v => v == 'C' ? MovementTypeEnum.Credit : MovementTypeEnum.Debit);
+    v => v == MovementTypeEnum.C ? 'C' : 'D',
+    v => v == 'C' ? MovementTypeEnum.C : MovementTypeEnum.D);

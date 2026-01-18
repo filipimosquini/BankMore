@@ -12,34 +12,23 @@
       ]
     },
     {
-      "Key": "DOCUMENT_IS_INVALID",
+      "Key": "HOLDER_IS_REQUIRED",
       "values": [
         {
           "value": {
-            "code": "Documnent.IsInvalid",
-            "message": "The document is invalid."
+            "code": "holder.IsRequired",
+            "message": "The holder is required."
           }
         }
       ]
     },
     {
-      "Key": "DOCUMENT_IS_REQUIRED",
+      "Key": "HOLDER_MUST_BE_INFORMED",
       "values": [
         {
           "value": {
-            "code": "Documnent.IsRequired",
-            "message": "The document is required."
-          }
-        }
-      ]
-    },
-    {
-      "Key": "DOCUMENT_MUST_BE_INFORMED",
-      "values": [
-        {
-          "value": {
-            "code": "Documnent.MustBeInformed",
-            "message": "The document must be informed."
+            "code": "Holder.MustBeInformed",
+            "message": "The holder must be informed."
           }
         }
       ]
@@ -66,5 +55,60 @@
         }
       ]
     },
+    {
+      "Key": "INACTIVE_ACCOUNT",
+      "values": [
+        {
+          "value": {
+            "code": "Inactive.Account",
+            "message": "Account is inactive."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "INVALID_ACCOUNT_NUMBER",
+      "values": [
+        {
+          "value": {
+            "code": "Invalid.AccountNumber",
+            "message": "Field 'AccountNumber' invalid."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "INVALID_REQUEST_ID",
+      "values": [
+        {
+          "value": {
+            "code": "Invalid.RequestId",
+            "message": "Field 'RequestId' invalid."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "INVALID_VALUE",
+      "values": [
+        {
+          "value": {
+            "code": "Invalid.Amount",
+            "message": "Just positive amount values are acceptable"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "INVALID_TYPE",
+      "values": [
+        {
+          "value": {
+            "code": "Invalid.MovementType",
+            "message": "Field 'Movementtype' invalid"
+          }
+        }
+      ]
+    }
   ]
 }

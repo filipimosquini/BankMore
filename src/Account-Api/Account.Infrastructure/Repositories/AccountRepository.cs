@@ -18,4 +18,10 @@ public class AccountRepository : BaseRepository<Core.AccountAggregate.Account>, 
 
     public async Task<Core.AccountAggregate.Account> GetById(Guid id)
         => await _context.Accounts.FirstOrDefaultAsync(x => x.Id == id);
+
+    public async Task<Core.AccountAggregate.Account> GetByUser(Guid userId)
+        => await _context.Accounts.FirstOrDefaultAsync(x => x.UserId == userId);
+
+    public async Task<Core.AccountAggregate.Account> GetByAccountNumber(int accountNumber)
+        => await _context.Accounts.FirstOrDefaultAsync(x => x.Number == accountNumber);
 }

@@ -1,7 +1,11 @@
-﻿namespace Account.Core.MovementAggregate.Enumerators;
+﻿using System.ComponentModel;
+
+namespace Account.Core.MovementAggregate.Enumerators;
 
 public enum MovementTypeEnum
 {
-    Credit = 'C',
-    Debit = 'D'
+    [Description("Credit")]
+    C = 'C',
+    [Description("Debit")]
+    D = 'D'
 }

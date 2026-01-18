@@ -6,5 +6,5 @@ namespace Account.Api.Documentation.Swagger.Examples;
 public class CreateAccountRequestExample : IExamplesProvider<CreateAccountRequest>
 {
     public CreateAccountRequest GetExamples()
-        => new ("20069640033");
+        => new ("José da Silva");
 }

@@ -7,8 +7,8 @@ namespace Account.Core.AccountAggregate;
 
 public class Account : BaseEntity
 {
-    public string Number { get; protected set; } = default!;
-    public string Document { get; protected set; } = default!;
+    public int Number { get; protected set; } = default!;
+    public string Holder { get; protected set; } = default!;
     public bool Active { get; protected set; }
     public Guid UserId { get; protected set; }
 
@@ -18,9 +18,9 @@ public class Account : BaseEntity
 
     protected Account() { }
 
-    public Account(string document, Guid userId)
+    public Account(string holder, Guid userId)
     {
-        Document = document;
+        Holder = holder;
         UserId = userId;
 
         GenerateSequenceNumber();
@@ -29,7 +29,7 @@ public class Account : BaseEntity
 
     private void GenerateSequenceNumber()
     {
-        Number = new Random().Next(1, 100000).ToString();
+        Number = new Random().Next(1, 100000);
     }
 
     public void EnableAccount()

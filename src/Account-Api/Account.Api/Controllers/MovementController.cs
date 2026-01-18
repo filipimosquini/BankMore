@@ -1,0 +1,107 @@
+﻿using Account.Api.Controllers.Requests;
+using Account.Api.Documentation.Swagger.Examples;
+using Account.Application.Movement.Commands.CreateMovement;
+using Account.Application.Movement.Dto;
+using Account.Application.Movement.Queries.GetBalances;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Filters;
+using System.Net;
+using System.Threading.Tasks;
+
+namespace Account.Api.Controllers;
+
+[Route("api/movements")]
+public class MovementController : BaseController<MovementController>
+{
+    public MovementController(ILoggerFactory loggerFactory, IMediator mediatorService) : base(loggerFactory, mediatorService)
+    {
+    }
+    /// <summary>
+    /// api/movements.
+    /// </summary>
+    /// <remarks>
+    /// <p>
+    /// <b> Description: </b><br />
+    /// This method create a movement. <br />
+    /// </p>
+    /// <p>
+    /// <b> Requirements: </b><br />
+    /// Is required to be authenticated. <br />
+    /// </p>
+    /// </remarks>
+    /// <response code="204">No Content</response>
+    /// <response code="400">Bad Request
+    /// <ul>
+    ///     <li>Inactive.Account</li>
+    ///     <li>Invalid.AccountNumber</li>
+    ///     <li>Invalid.Amount</li>
+    ///     <li>Invalid.MovementType</li>
+    ///     <li>Invalid.RequestId</li>
+    /// </ul>
+    /// </response>
+    /// <response code="401"> Unauthorized
+    /// <ul>
+    ///     <li>Blocked.UserUnauthorized</li>
+    /// </ul>
+    /// </response> 
+    /// <response code="404">Not Found
+    /// <ul>
+    ///     <li>NotFound.Account</li>
+    /// </ul>
+    /// </response>
+    /// <response code="500">InternalServerError
+    /// <ul>
+    ///     <li>Error.Unexpected</li>
+    /// </ul>
+    /// </response>
+    [HttpPost]
+    [Authorize]
+    [SwaggerRequestExample(typeof(CreateMovementCommand), typeof(CreateMovementCommandExample))]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    public async Task<IActionResult> CreateMovementAsync([FromBody] CreateMovementCommand command)
+        => await ExecuteAsync(async () => await _mediatorService.Send(command), HttpStatusCode.NoContent);
+
+    /// <summary>
+    /// api/movements/balances.
+    /// </summary>
+    /// <remarks>
+    /// <p>
+    /// <b> Description: </b><br />
+    /// This method get a balance result. <br />
+    /// </p>
+    /// <p>
+    /// <b> Requirements: </b><br />
+    /// Not Exists. <br />
+    /// </p>
+    /// </remarks>
+    /// <response code="200"> OK </response>
+    /// <response code="400"> Bad Request
+    /// <ul>
+    /// <li>Inactive.Account</li>
+    /// <li>Invalid.AccountNumber</li>
+    /// </ul>
+    /// </response>
+    /// <response code="401"> Unauthorized
+    /// <ul>
+    ///     <li>Blocked.UserUnauthorized</li>
+    /// </ul>
+    /// </response> 
+    /// <response code="404">Not Found
+    /// <ul>
+    ///     <li>NotFound.Account</li>
+    /// </ul>
+    /// </response>
+    /// <response code="500"> InternalServerError
+    /// <ul>
+    /// <li> Error.Unexpected </li>
+    /// </ul>
+    /// </response>
+    [HttpGet("balances")]
+    [Authorize]
+    [ProducesResponseType(typeof(GetBalanceQueryDto), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetBalanceAsync([FromQuery] GetBalanceQuery query)
+        => await ExecuteAsync(async () => await _mediatorService.Send(query));
+}

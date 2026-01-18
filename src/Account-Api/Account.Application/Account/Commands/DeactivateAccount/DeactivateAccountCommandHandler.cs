@@ -11,7 +11,7 @@ public class DeactivateAccountCommandHandler(IAccountRepository accountRepositor
 {
     public async Task<Unit> Handle(DeactivateAccountCommand request, CancellationToken cancellationToken)
     {
-        var account = await accountRepository.GetById(Guid.Parse(request.AccountId));
+        var account = await accountRepository.GetByUser(Guid.Parse(request.UserId));
 
         if (account is null)
         {

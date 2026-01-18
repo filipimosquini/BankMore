@@ -7,16 +7,12 @@ public class CreateAccountCommandValidator : AbstractValidator<CreateAccountComm
 {
     public CreateAccountCommandValidator()
     {
-        RuleFor(x => x.Cpf)
-            .NotEmpty().WithErrorCode("DOCUMENT_MUST_BE_INFORMED")
-            .NotNull().WithErrorCode("DOCUMENT_IS_REQUIRED")
-            .Must(ValidDocument).WithErrorCode("DOCUMENT_IS_INVALID");
+        RuleFor(x => x.Holder)
+            .NotEmpty().WithErrorCode("HOLDER_MUST_BE_INFORMED")
+            .NotNull().WithErrorCode("HOLDER_IS_REQUIRED");
 
         RuleFor(x => x.UserId)
             .NotEmpty().WithErrorCode("USER_IS_REQUIRED")
             .NotNull().WithErrorCode("USER_IS_REQUIRED");
     }
-
-    private bool ValidDocument(string cpf)
-        => new CPFValidator().IsValid(cpf);
 }

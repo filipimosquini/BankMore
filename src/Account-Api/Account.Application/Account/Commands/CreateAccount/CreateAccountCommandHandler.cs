@@ -1,21 +1,25 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Account.Application.Account.Dto;
 using Account.Core.AccountAggregate.Repositories;
 using MediatR;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Account.Application.Account.Commands.CreateAccount;
 
-public class CreateAccountCommandHandler(IAccountRepository accountRepository) : IRequestHandler<CreateAccountCommand, Unit>
+public class CreateAccountCommandHandler(IAccountRepository accountRepository) : IRequestHandler<CreateAccountCommand, CreateAccountDto>
 {
-    public async Task<Unit> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    public async Task<CreateAccountDto> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        var account = new Core.AccountAggregate.Account(request.Cpf, Guid.Parse(request.UserId));
+        var account = new Core.AccountAggregate.Account(request.Holder, Guid.Parse(request.UserId));
 
         await accountRepository.AddAsync(account);
 
         await accountRepository.UnitOfWork.Commit();
 
-        return Unit.Value;
+        return new CreateAccountDto
+        {
+            AccountNumber = account.Number
+        };
     }
 }

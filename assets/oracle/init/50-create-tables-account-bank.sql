@@ -26,7 +26,7 @@ BEGIN
     CREATE TABLE ACCOUNT_BANK.contacorrente (
       idcontacorrente VARCHAR2(32)  NOT NULL,
       numero          NUMBER(10)    NOT NULL,
-      documento       VARCHAR2(100) NOT NULL,
+      nome	          VARCHAR2(100) NOT NULL,
       ativo           NUMBER(1) DEFAULT 1 NOT NULL,
       idusuario		  VARCHAR2(32) 	NOT NULL,
       CONSTRAINT pk_contacorrente PRIMARY KEY (idcontacorrente),

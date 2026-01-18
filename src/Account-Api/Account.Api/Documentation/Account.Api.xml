@@ -56,7 +56,7 @@
             Is required to be authenticated. <br />
             </p>
             </remarks>
-            <response code="200">OK</response>
+            <response code="201">Created</response>
             <response code="400"> Bad Request
             <ul>
                 <li>Document.IsInvalid</li>
@@ -77,7 +77,7 @@
             </ul>
             </response>
         </member>
-        <member name="M:Account.Api.Controllers.AccountController.DeactivateAccountAsync(Account.Application.Account.Commands.DeactivateAccount.DeactivateAccountCommand)">
+        <member name="M:Account.Api.Controllers.AccountController.DeactivateAccountAsync">
             <summary>
             api/accounts/deactivate.
             </summary>
@@ -143,6 +143,83 @@
             <param name="function">The function</param>
             <param name="httpStatusCode">The response code.</param>
             <returns></returns>
+        </member>
+        <member name="M:Account.Api.Controllers.MovementController.CreateMovementAsync(Account.Application.Movement.Commands.CreateMovement.CreateMovementCommand)">
+            <summary>
+            api/movements.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method create a movement. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Is required to be authenticated. <br />
+            </p>
+            </remarks>
+            <response code="204">No Content</response>
+            <response code="400">Bad Request
+            <ul>
+                <li>Inactive.Account</li>
+                <li>Invalid.AccountNumber</li>
+                <li>Invalid.Amount</li>
+                <li>Invalid.MovementType</li>
+                <li>Invalid.RequestId</li>
+            </ul>
+            </response>
+            <response code="401"> Unauthorized
+            <ul>
+                <li>Blocked.UserUnauthorized</li>
+            </ul>
+            </response> 
+            <response code="404">Not Found
+            <ul>
+                <li>NotFound.Account</li>
+            </ul>
+            </response>
+            <response code="500">InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
+        </member>
+        <member name="M:Account.Api.Controllers.MovementController.GetBalanceAsync(Account.Application.Movement.Queries.GetBalances.GetBalanceQuery)">
+            <summary>
+            api/movements/balances.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method get a balance result. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Not Exists. <br />
+            </p>
+            </remarks>
+            <response code="200"> OK </response>
+            <response code="400"> Bad Request
+            <ul>
+            <li>Inactive.Account</li>
+            <li>Invalid.AccountNumber</li>
+            </ul>
+            </response>
+            <response code="401"> Unauthorized
+            <ul>
+                <li>Blocked.UserUnauthorized</li>
+            </ul>
+            </response> 
+            <response code="404">Not Found
+            <ul>
+                <li>NotFound.Account</li>
+            </ul>
+            </response>
+            <response code="500"> InternalServerError
+            <ul>
+            <li> Error.Unexpected </li>
+            </ul>
+            </response>
         </member>
     </members>
 </doc>

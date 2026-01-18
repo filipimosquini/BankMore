@@ -2,6 +2,7 @@
 using Account.Api.Documentation.Swagger.Examples;
 using Account.Application.Account.Commands.CreateAccount;
 using Account.Application.Account.Commands.DeactivateAccount;
+using Account.Application.Account.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ public class AccountController : BaseController<AccountController>
     /// Is required to be authenticated. <br />
     /// </p>
     /// </remarks>
-    /// <response code="200">OK</response>
+    /// <response code="201">Created</response>
     /// <response code="400"> Bad Request
     /// <ul>
     ///     <li>Document.IsInvalid</li>
@@ -56,9 +57,9 @@ public class AccountController : BaseController<AccountController>
     [HttpPost]
     [Authorize]
     [SwaggerRequestExample(typeof(CreateAccountRequest), typeof(CreateAccountRequestExample))]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(CreateAccountDto), (int)HttpStatusCode.Created)]
     public async Task<IActionResult> CreateAccountAsync([FromBody] CreateAccountRequest request)
-        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateAccountCommand(request.Cpf, UserId)), HttpStatusCode.OK);
+        => await ExecuteAsync(async () => await _mediatorService.Send(new CreateAccountCommand(request.Holder, UserId)), HttpStatusCode.Created);
 
     /// <summary>
     /// api/accounts/deactivate.
@@ -89,6 +90,6 @@ public class AccountController : BaseController<AccountController>
     [HttpPatch("deactivate")]
     [Authorize]
     [ProducesResponseType((int)HttpStatusCode.NoContent)]
-    public async Task<IActionResult> DeactivateAccountAsync([FromBody] DeactivateAccountCommand command)
-        => await ExecuteAsync(async () => await _mediatorService.Send(command), HttpStatusCode.NoContent);
+    public async Task<IActionResult> DeactivateAccountAsync()
+        => await ExecuteAsync(async () => await _mediatorService.Send(new DeactivateAccountCommand(UserId)), HttpStatusCode.NoContent);
 }

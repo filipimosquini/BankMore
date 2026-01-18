@@ -24,10 +24,9 @@ public class AccountMap : IEntityTypeConfiguration<Core.AccountAggregate.Account
             .HasColumnName("NUMERO")
             .HasComment("Número da conta corrente");
 
-        builder
-            .Property(e => e.Document)
-            .HasColumnName("DOCUMENTO")
-            .HasComment("Documento vinculado a conta corrente");
+        builder.Property(e => e.Holder)
+            .HasColumnName("NOME")
+            .HasComment("Titular da conta corrente");
 
         builder
             .Property(e => e.Active)

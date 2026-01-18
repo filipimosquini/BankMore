@@ -27,25 +27,42 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateAccountRequest"
               },
-              "example": {"cpf":"20069640033"}
+              "example": {"holder":"José da Silva"}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateAccountRequest"
               },
-              "example": {"cpf":"20069640033"}
+              "example": {"holder":"José da Silva"}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateAccountRequest"
               },
-              "example": {"cpf":"20069640033"}
+              "example": {"holder":"José da Silva"}
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAccountDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAccountDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAccountDto"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad Request\r\n           <ul><li>Document.IsInvalid</li><li>Document.IsRequired</li><li>Document.MustBeInformed</li></ul>"
@@ -74,25 +91,6 @@
         ],
         "summary": "api/accounts/deactivate. (Auth)",
         "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method deactivate an account. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeactivateAccountCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeactivateAccountCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DeactivateAccountCommand"
-              }
-            }
-          }
-        },
         "responses": {
           "204": {
             "description": "No Content"
@@ -116,29 +114,197 @@
           }
         ]
       }
+    },
+    "/api/movements": {
+      "post": {
+        "tags": [
+          "Movement"
+        ],
+        "summary": "api/movements. (Auth)",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method create a movement. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMovementCommand"
+              },
+              "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMovementCommand"
+              },
+              "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMovementCommand"
+              },
+              "example": {"requestId":"25561a63-fe01-41fb-bb97-87e4a9b64ac1","accountNumber":123,"amount":300,"movementType":67}
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request\r\n            <ul><li>Inactive.Account</li><li>Invalid.AccountNumber</li><li>Invalid.Amount</li><li>Invalid.MovementType</li><li>Invalid.RequestId</li></ul>"
+          },
+          "401": {
+            "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
+          },
+          "404": {
+            "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
+          },
+          "500": {
+            "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/movements/balances": {
+      "get": {
+        "tags": [
+          "Movement"
+        ],
+        "summary": "api/movements/balances. (Auth)",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method get a balance result. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Not Exists. \r\n</p>",
+        "parameters": [
+          {
+            "name": "AccountNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBalanceQueryDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBalanceQueryDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBalanceQueryDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request\r\n           <ul><li>Inactive.Account</li><li>Invalid.AccountNumber</li></ul>"
+          },
+          "401": {
+            "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
+          },
+          "404": {
+            "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
+          },
+          "500": {
+            "description": "InternalServerError\r\n           <ul><li> Error.Unexpected </li></ul>"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
     }
   },
   "components": {
     "schemas": {
+      "CreateAccountDto": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateAccountRequest": {
         "type": "object",
         "properties": {
-          "cpf": {
+          "holder": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "DeactivateAccountCommand": {
+      "CreateMovementCommand": {
         "type": "object",
         "properties": {
-          "accountId": {
+          "requestId": {
             "type": "string",
             "nullable": true
+          },
+          "accountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "movementType": {
+            "$ref": "#/components/schemas/MovementTypeEnum"
           }
         },
         "additionalProperties": false
+      },
+      "GetBalanceQueryDto": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "holder": {
+            "type": "string",
+            "nullable": true
+          },
+          "queryDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "balance": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MovementTypeEnum": {
+        "enum": [
+          67,
+          68
+        ],
+        "type": "integer",
+        "format": "int32"
       }
     },
     "securitySchemes": {

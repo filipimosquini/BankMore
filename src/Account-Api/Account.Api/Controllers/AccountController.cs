@@ -50,6 +50,7 @@ public class AccountController(ILoggerFactory loggerFactory, IMediator mediatorS
     /// <ul>
     ///     <li>Idempotency.InProgress</li>
     ///     <li>Idempotency.KeyReuse</li>
+    ///     <li>User.HasRegisteredAccount</li>
     /// </ul>
     /// </response>
     /// <response code="500"> InternalServerError

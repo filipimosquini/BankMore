@@ -78,6 +78,17 @@
       ]
     },
     {
+      "Key": "USER_HAS_REGISTERED_ACCOUNT",
+      "values": [
+        {
+          "value": {
+            "code": "User.HasRegisteredAccount",
+            "message": "The user has a registered account."
+          }
+        }
+      ]
+    },    
+    {
       "Key": "ACCOUNT_NOT_FOUND",
       "values": [
         {

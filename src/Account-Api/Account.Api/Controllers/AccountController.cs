@@ -34,9 +34,10 @@ public class AccountController(ILoggerFactory loggerFactory, IMediator mediatorS
     /// <response code="201">Created</response>
     /// <response code="400"> Bad Request
     /// <ul>
-    ///     <li>Document.IsInvalid</li>
-    ///     <li>Document.IsRequired</li>
-    ///     <li>Document.MustBeInformed</li>
+    ///     <li>Holder.IsRequired</li>
+    ///     <li>Holder.MustBeInformed</li>
+    ///     <li>Invalid.RequestId</li>
+    ///     <li>User.IsRequired</li>
     /// </ul>
     /// </response> 
     /// <response code="401"> Unauthorized
@@ -84,6 +85,11 @@ public class AccountController(ILoggerFactory loggerFactory, IMediator mediatorS
     /// </p>
     /// </remarks>
     /// <response code="204">No Content</response>
+    /// <response code="400"> Bad Request
+    /// <ul>
+    ///     <li>User.IsRequired</li>
+    /// </ul>
+    /// </response> 
     /// <response code="401"> Unauthorized
     /// </response> 
     /// <response code="404"> Not Found

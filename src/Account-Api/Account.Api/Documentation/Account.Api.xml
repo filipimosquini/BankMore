@@ -77,9 +77,10 @@
             <response code="201">Created</response>
             <response code="400"> Bad Request
             <ul>
-                <li>Document.IsInvalid</li>
-                <li>Document.IsRequired</li>
-                <li>Document.MustBeInformed</li>
+                <li>Holder.IsRequired</li>
+                <li>Holder.MustBeInformed</li>
+                <li>Invalid.RequestId</li>
+                <li>User.IsRequired</li>
             </ul>
             </response> 
             <response code="401"> Unauthorized
@@ -122,6 +123,11 @@
             </p>
             </remarks>
             <response code="204">No Content</response>
+            <response code="400"> Bad Request
+            <ul>
+                <li>User.IsRequired</li>
+            </ul>
+            </response> 
             <response code="401"> Unauthorized
             </response> 
             <response code="404"> Not Found
@@ -196,6 +202,59 @@
                 <li>Invalid.Amount</li>
                 <li>Invalid.MovementType</li>
                 <li>Invalid.RequestId</li>
+                <li>User.IsRequired</li>
+            </ul>
+            </response>
+            <response code="401"> Unauthorized
+            <ul>
+                <li>Blocked.UserUnauthorized</li>
+            </ul>
+            </response> 
+            <response code="404">Not Found
+            <ul>
+                <li>NotFound.Account</li>
+            </ul>
+            </response>
+            <response code="409"> Conflict
+            <ul>
+                <li>Conflict.OnlyCreditMovementAccepted</li>
+                <li>Idempotency.InProgress</li>
+                <li>Idempotency.KeyReuse</li>
+            </ul>
+            </response>
+            <response code="500">InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
+            <response code="503"> ServiceUnavailable
+            <ul>
+                <li>Idempotency.Unavailable</li>
+            </ul>
+            </response>
+        </member>
+        <member name="M:Account.Api.Controllers.MovementController.CreateMovementByHolderAsync(Account.Api.Controllers.Requests.CreateMovementByHolderRequest,System.Guid)">
+            <summary>
+            api/movements/holder.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method create a movement by holder account. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Is required to be authenticated. <br />
+            </p>
+            </remarks>
+            <response code="204">No Content</response>
+            <response code="400">Bad Request
+            <ul>
+                <li>Inactive.Account</li>
+                <li>Invalid.Amount</li>
+                <li>Invalid.MovementType</li>
+                <li>Invalid.RequestId</li>
+                <li>User.IsRequired</li>
             </ul>
             </response>
             <response code="401"> Unauthorized
@@ -262,6 +321,19 @@
             <li> Error.Unexpected </li>
             </ul>
             </response>
+        </member>
+        <member name="P:Account.Api.Controllers.Requests.CreateMovementByHolderRequest.Amount">
+            <summary>
+            The amount of bank movement
+            </summary>
+            <example>300</example>
+        </member>
+        <member name="P:Account.Api.Controllers.Requests.CreateMovementByHolderRequest.MovementType">
+            <summary>
+            The Movement Types.
+            The accepted values is [C] C or [D] D
+            </summary>
+            <example>C</example>
         </member>
         <member name="P:Account.Api.Controllers.Requests.CreateMovementRequest.AccountNumber">
             <summary>

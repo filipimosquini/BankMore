@@ -49,7 +49,7 @@
       "values": [
         {
           "value": {
-            "code": "holder.IsRequired",
+            "code": "Holder.IsRequired",
             "message": "The holder is required."
           }
         }

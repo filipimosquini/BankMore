@@ -1,19 +1,14 @@
 ﻿using FluentValidation;
-using System;
 
-namespace Account.Application.Movement.Commands.CreateMovement;
+namespace Account.Application.Movement.Commands.CreateMovementByHolder;
 
-public class CreateMovementCommandValidator : AbstractValidator<CreateMovementCommand>
+public class CreateMovementByHolderCommandValidator : AbstractValidator<CreateMovementByHolderCommand>
 {
-    public CreateMovementCommandValidator()
+    public CreateMovementByHolderCommandValidator()
     {
         RuleFor(x => x.RequestId)
             .NotEmpty().WithErrorCode("INVALID_REQUEST_ID")
             .NotNull().WithErrorCode("INVALID_REQUEST_ID");
-
-        RuleFor(x => x.AccountNumber)
-            .GreaterThan(0)
-            .WithErrorCode("INVALID_ACCOUNT_NUMBER");
 
         RuleFor(x => x.Amount)
             .GreaterThan(0)

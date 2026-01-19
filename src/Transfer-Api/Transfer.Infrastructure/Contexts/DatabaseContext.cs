@@ -1,10 +1,11 @@
-﻿using Transfer.Core.Repositories.Bases;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Transfer.Core.Common.Repositories.Bases;
 
 namespace Transfer.Infrastructure.Contexts;
 
@@ -23,12 +24,6 @@ public class DatabaseContext(IConfiguration configuration) : DbContext, IUnitOfW
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
-                     e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
-        {
-            property.SetColumnType("varchar(100)");
-        }
-
         foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
         {
             relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
@@ -52,9 +47,9 @@ public class DatabaseContext(IConfiguration configuration) : DbContext, IUnitOfW
         return !idsDeTodasAsMigrations.Except(idsDasMigrationJaExecutadas).Any();
     }
 
-    public async Task<bool> Commit()
+    public async Task<bool> Commit(CancellationToken cancellationToken)
     {
-        if (await base.SaveChangesAsync() <= 0)
+        if (await base.SaveChangesAsync(cancellationToken) <= 0)
             return false;
 
         return true;

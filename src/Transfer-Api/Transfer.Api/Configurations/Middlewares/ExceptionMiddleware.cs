@@ -41,6 +41,10 @@ public class ExceptionMiddleware
         {
             await HandleValidationException(context.Response, exception);
         }
+        catch (IdempotencyNotificationException exception)
+        {
+            await HandleIdempotencyNotificationException(context.Response, exception);
+        }
         catch (Exception exception)
         {
             await HandleFatalError(context.Response, exception);
@@ -87,7 +91,7 @@ public class ExceptionMiddleware
         return response.WriteAsync(new { notifications = _notifications }.ToJson());
     }
 
-   /// <summary>
+    /// <summary>
     /// Handle the exception result when ValidationException occurs.
     /// </summary>
     /// <param name="exception"> The exception. </param>
@@ -125,6 +129,33 @@ public class ExceptionMiddleware
         }
 
         return response.WriteAsync(new { notifications = notifications }.ToJson());
+    }
+
+    /// <summary>
+    /// Handle the exception result when IdempotencyNotificationException occurs.
+    /// </summary>
+    /// <param name="response"></param>
+    /// <param name="exception"></param>
+    /// <returns></returns>
+    private Task HandleIdempotencyNotificationException(HttpResponse response, IdempotencyNotificationException exception)
+    {
+        _logger.LogError(new
+        {
+            timestamp = DateTime.UtcNow,
+            correlation = Guid.NewGuid().ToString(),
+            StackTrace = exception.StackTrace
+        }.ToJson());
+
+        response.ContentType = "application/json";
+
+        if (exception.Envelope.Notifications != null && exception.Envelope.Notifications.Count == 0)
+        {
+            response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            return response.WriteAsync(new { notifications = _resourceCatalog.UnexpectedError() }.ToJson());
+        }
+
+        response.StatusCode = (int)exception.StatusCode;
+        return response.WriteAsync(new { notifications = exception.Envelope.Notifications }.ToJson());
     }
 
     /// <summary>

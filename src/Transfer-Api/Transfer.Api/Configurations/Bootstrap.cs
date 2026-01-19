@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Transfer.Core.Common.Indepotencies.Hashing;
+using Transfer.Core.Common.Indepotencies.Repositories;
+using Transfer.Infrastructure.Common.Idempotencies.Hashing;
+using Transfer.Infrastructure.Common.Idempotencies.Repositories;
 using Transfer.Infrastructure.CrossCutting.ResourcesCatalog;
 
 namespace Transfer.Api.Configurations;
@@ -10,9 +14,11 @@ public static class Bootstrap
         return services.AddSingleton<IResourceCatalog, ResourceCatalog>();
     }
 
-    public static IServiceCollection AddRepositoriesDependencies(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
     {
-        return services;
+        return services
+            .AddScoped<IIdempotencyRepository, IdempotencyRepository>()
+            .AddScoped<IIdempotencyHasher, IdempotencyHasher>();
     }
 
     public static IServiceCollection AddServicesDependencies(this IServiceCollection services)
@@ -35,7 +41,8 @@ public static class Bootstrap
 
         //return services
         //    .AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!))
-        //    .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
+        //    .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>))
+        //    .AddTransient(typeof(IPipelineBehavior<,>), typeof(IdempotencyBehavior<,>));
 
         return services;
     }

@@ -31,6 +31,7 @@ builder.Services
 // Project
 builder.Services
     .AddResourcesDependencies()
+    .AddInfrastructureDependencies()
     .AddServicesDependencies()
     .AddValidatorDependencies()
     .AddMediatrDependencies();

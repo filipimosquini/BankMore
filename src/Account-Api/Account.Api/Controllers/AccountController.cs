@@ -41,11 +41,12 @@ public class AccountController(ILoggerFactory loggerFactory, IMediator mediatorS
     /// </ul>
     /// </response> 
     /// <response code="401"> Unauthorized
-    /// <ul>
-    ///     <li>Blocked.UserUnauthorized</li>
-    /// </ul>
     /// </response> 
     /// <response code="403"> Forbidden
+    /// <ul>
+    ///     <li>Expired.Token</li>
+    ///     <li>Invalid.Token</li>
+    /// </ul>
     /// </response>
     /// <response code="409"> Conflict
     /// <ul>
@@ -91,7 +92,13 @@ public class AccountController(ILoggerFactory loggerFactory, IMediator mediatorS
     /// </ul>
     /// </response> 
     /// <response code="401"> Unauthorized
-    /// </response> 
+    /// </response>
+    /// <response code="403"> Forbidden
+    /// <ul>
+    ///     <li>Expired.Token</li>
+    ///     <li>Invalid.Token</li>
+    /// </ul>
+    /// </response>
     /// <response code="404"> Not Found
     /// <ul>
     ///     <li>Account.NotFound</li>

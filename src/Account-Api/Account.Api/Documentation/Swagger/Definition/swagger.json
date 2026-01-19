@@ -78,10 +78,10 @@
             "description": "Bad Request\r\n           <ul><li>Holder.IsRequired</li><li>Holder.MustBeInformed</li><li>Invalid.RequestId</li><li>User.IsRequired</li></ul>"
           },
           "401": {
-            "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
+            "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
           },
           "409": {
             "description": "Conflict\r\n           <ul><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li><li>User.HasRegisteredAccount</li></ul>"
@@ -117,14 +117,14 @@
           "401": {
             "description": "Unauthorized"
           },
+          "403": {
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
+          },
           "404": {
             "description": "Not Found\r\n           <ul><li>Account.NotFound</li></ul>"
           },
           "500": {
             "description": "InternalServerError\r\n           <ul><li>Error.Unexpected</li></ul>"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -181,7 +181,10 @@
             "description": "Bad Request\r\n            <ul><li>Inactive.Account</li><li>Invalid.AccountNumber</li><li>Invalid.Amount</li><li>Invalid.MovementType</li><li>Invalid.RequestId</li><li>User.IsRequired</li></ul>"
           },
           "401": {
-            "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
           },
           "404": {
             "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
@@ -194,9 +197,6 @@
           },
           "503": {
             "description": "ServiceUnavailable\r\n           <ul><li>Idempotency.Unavailable</li></ul>"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -253,7 +253,10 @@
             "description": "Bad Request\r\n            <ul><li>Inactive.Account</li><li>Invalid.Amount</li><li>Invalid.MovementType</li><li>Invalid.RequestId</li><li>User.IsRequired</li></ul>"
           },
           "401": {
-            "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
           },
           "404": {
             "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
@@ -266,9 +269,6 @@
           },
           "503": {
             "description": "ServiceUnavailable\r\n           <ul><li>Idempotency.Unavailable</li></ul>"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -320,16 +320,16 @@
             "description": "Bad Request\r\n           <ul><li>Inactive.Account</li><li>Invalid.AccountNumber</li></ul>"
           },
           "401": {
-            "description": "Unauthorized\r\n           <ul><li>Blocked.UserUnauthorized</li></ul>"
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
           },
           "404": {
             "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
           },
           "500": {
             "description": "InternalServerError\r\n           <ul><li> Error.Unexpected </li></ul>"
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [

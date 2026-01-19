@@ -43,10 +43,13 @@ public class MovementController(ILoggerFactory loggerFactory, IMediator mediator
     /// </ul>
     /// </response>
     /// <response code="401"> Unauthorized
+    /// </response>
+    /// <response code="403"> Forbidden
     /// <ul>
-    ///     <li>Blocked.UserUnauthorized</li>
+    ///     <li>Expired.Token</li>
+    ///     <li>Invalid.Token</li>
     /// </ul>
-    /// </response> 
+    /// </response>
     /// <response code="404">Not Found
     /// <ul>
     ///     <li>NotFound.Account</li>
@@ -100,10 +103,13 @@ public class MovementController(ILoggerFactory loggerFactory, IMediator mediator
     /// </ul>
     /// </response>
     /// <response code="401"> Unauthorized
+    /// </response>
+    /// <response code="403"> Forbidden
     /// <ul>
-    ///     <li>Blocked.UserUnauthorized</li>
+    ///     <li>Expired.Token</li>
+    ///     <li>Invalid.Token</li>
     /// </ul>
-    /// </response> 
+    /// </response>
     /// <response code="404">Not Found
     /// <ul>
     ///     <li>NotFound.Account</li>
@@ -155,10 +161,13 @@ public class MovementController(ILoggerFactory loggerFactory, IMediator mediator
     /// </ul>
     /// </response>
     /// <response code="401"> Unauthorized
+    /// </response>
+    /// <response code="403"> Forbidden
     /// <ul>
-    ///     <li>Blocked.UserUnauthorized</li>
+    ///     <li>Expired.Token</li>
+    ///     <li>Invalid.Token</li>
     /// </ul>
-    /// </response> 
+    /// </response>
     /// <response code="404">Not Found
     /// <ul>
     ///     <li>NotFound.Account</li>

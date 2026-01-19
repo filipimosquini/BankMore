@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using Transfer.Api.Configurations.Validators;
+using Transfer.Application.Common.Idempotencies.Behaviors;
+using Transfer.Application.Transfer.Commands.CreateTransfer;
 using Transfer.Core.Common.Indepotencies.Hashing;
 using Transfer.Core.Common.Indepotencies.Repositories;
 using Transfer.Infrastructure.Common.Idempotencies.Hashing;
@@ -28,21 +34,21 @@ public static class Bootstrap
 
     public static IServiceCollection AddValidatorDependencies(this IServiceCollection services)
     {
-        return services;
-        //.AddValidatorsFromAssemblyContaining<CreateUserCommandValidator>();
+        return services
+            .AddValidatorsFromAssemblyContaining<CreateTransferCommandValidator>();
     }
 
     public static IServiceCollection AddMediatrDependencies(this IServiceCollection services)
     {
-        //var mediatRAssemblies = new[]{};
-        //{
-        //    Assembly.GetAssembly(typeof(CreateUserCommandHandler)), // Application
-        //};
+        var mediatRAssemblies = new[]
+        {
+            Assembly.GetAssembly(typeof(CreateTransferCommandHandler)), // Application
+        };
 
-        //return services
-        //    .AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!))
-        //    .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>))
-        //    .AddTransient(typeof(IPipelineBehavior<,>), typeof(IdempotencyBehavior<,>));
+        return services
+            .AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(IdempotencyBehavior<,>));
 
         return services;
     }

@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Transfer.Application\Transfer.Application.csproj" />
     <ProjectReference Include="..\Transfer.Infrastructure.CrossCutting\Transfer.Infrastructure.CrossCutting.csproj" />
     <ProjectReference Include="..\Transfer.Infrastructure\Transfer.Infrastructure.csproj" />
   </ItemGroup>

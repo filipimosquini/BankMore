@@ -36,10 +36,12 @@ services:
     restart: always
     ports:
       - "5000:80"
-      - "5001:443"
     environment:
+      ASPNETCORE_URLS: http://+:80
       ASPNETCORE_ENVIRONMENT: Production
       DOTNET_ENVIRONMENT: Production
+      Identity__Issuer: "http://authentication.api"
+      Identity__ValidOn: "http://localhost"
     depends_on:
       bankmore.oracle:
         condition: service_healthy
@@ -53,12 +55,12 @@ services:
     restart: always
     ports:
       - "5010:80"
-      - "5011:443"
     environment:
+      ASPNETCORE_URLS: http://+:80    
       ASPNETCORE_ENVIRONMENT: Production
       DOTNET_ENVIRONMENT: Production
-      Identity__Authority: "https://authentication.api:5001"
-      Identity__Audience: "https://localhost"
+      Identity__Authority: "http://authentication.api"
+      Identity__Audience: "http://localhost"
     depends_on:
       bankmore.oracle:
         condition: service_healthy

@@ -3,15 +3,14 @@ using Authentication.Infrastructure.Contexts;
 using Authentication.Infrastructure.Sections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
-using System.Text;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 
 
 namespace Authentication.Api.Configuration.Extensions;
@@ -93,6 +92,7 @@ public static class AuthenticationSetup
     {
         // JWKS returned from singleton (RSA is not Created by request)
         endpoints.MapGet("/.well-known/jwks.json", (JsonWebKeySet jwks) => Results.Json(jwks))
+            .AllowAnonymous()
             .WithName("JWKS")
             .WithTags("JWKS");
 
@@ -112,6 +112,7 @@ public static class AuthenticationSetup
                     jwks_uri = $"{issuer}/.well-known/jwks.json"
                 });
             })
+            .AllowAnonymous()
             .WithName("OpenIdConfiguration")
             .WithTags("JWKS");
 

@@ -23,7 +23,6 @@ builder.Services.AddControllers();
 // Configurations
 builder.Services
     .AddDbContext(builder.Configuration)
-    .AddInfrastructureDependencies()
     .AddingCors()
     .AddingResponseCompression()
     .AddingAuthentication(builder.Configuration)
@@ -32,6 +31,7 @@ builder.Services
 // Project
 builder.Services
     .AddResourcesDependencies()
+    .AddInfrastructureDependencies()
     .AddServicesDependencies()
     .AddValidatorDependencies()
     .AddMediatrDependencies();

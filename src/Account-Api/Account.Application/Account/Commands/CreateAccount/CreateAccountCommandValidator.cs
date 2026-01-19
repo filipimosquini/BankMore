@@ -1,5 +1,4 @@
-﻿using Caelum.Stella.CSharp.Validation;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Account.Application.Account.Commands.CreateAccount;
 

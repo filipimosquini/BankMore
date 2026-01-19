@@ -84,7 +84,7 @@
             "description": "Forbidden"
           },
           "409": {
-            "description": "Conflict\r\n           <ul><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li></ul>"
+            "description": "Conflict\r\n           <ul><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li><li>User.HasRegisteredAccount</li></ul>"
           },
           "500": {
             "description": "InternalServerError\r\n           <ul><li>Error.Unexpected</li></ul>"

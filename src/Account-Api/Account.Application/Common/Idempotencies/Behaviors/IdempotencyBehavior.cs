@@ -112,7 +112,7 @@ public sealed class IdempotencyBehavior<TRequest, TResponse>(IIdempotencyReposit
             throw;
         }
 
-        var resultJson = typeof(TResponse) == typeof(Unit) ? string.Empty : JsonConvert.SerializeObject(response, SerializerSettings);
+        var resultJson = typeof(TResponse) == typeof(Unit) ? "{}" : JsonConvert.SerializeObject(response, SerializerSettings);
 
         try
         {

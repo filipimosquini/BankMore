@@ -5,7 +5,8 @@
 2. Para validar os tokens para autenticação nas APIs, foi utilizado o JWKS e foi implementada na Authentication-Api.
 3. Sobre a arquitetura do projeto, adicionei uma api para tratar ações relacionadas a autenticação e informações do usuário.
 4. Não foram aplicados testes unitários e testes de integração.
-5. Foram realizados ajustes no script para que seja possível utilizar em um banco de dados Oracle.
+5. No endpoint de criação de uma conta corrente, como trafegamos um token JWT, no payload, será enviado somente o nome do titular da conta pois as informações necessáriasrelacionadas ao usuário são obtidos no token.
+6. Foram realizados ajustes no script para que seja possível utilizar em um banco de dados Oracle.
 
 Na tabela **CONTACORRENTE** removi os campos ```salt``` e ```senha``` pois como criei uma API para manter e autenticar usuários,o próprio AspNetIdentity ao criar um usuário  já realiza a geração do salt aleatório por usuário e cria o hash da senha como salt + algoritmo de hash forte e serializa em uma única string no campo passwordHash. Também, existe o suporte a verificação do password onde ele considera a senha e o salt.
 

@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 
 namespace Account.Api.Configurations.Extensions;
@@ -74,6 +75,11 @@ public static class AuthenticationSetup
 
                     OnAuthenticationFailed = context =>
                     {
+                        context.HttpContext.RequestServices
+                            .GetRequiredService<ILoggerFactory>()
+                            .CreateLogger("JwtBearer")
+                            .LogError(context.Exception, "JWT authentication failed");
+
                         context.HttpContext.Items["HasAuthFailed"] = true;
 
                         context.HttpContext.Items["AuthFailureReason"] =

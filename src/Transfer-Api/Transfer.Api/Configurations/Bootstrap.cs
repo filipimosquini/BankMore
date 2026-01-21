@@ -7,9 +7,11 @@ using Transfer.Application.Common.Idempotencies.Behaviors;
 using Transfer.Application.Transfer.Commands.CreateTransfer;
 using Transfer.Core.Common.Indepotencies.Hashing;
 using Transfer.Core.Common.Indepotencies.Repositories;
+using Transfer.Core.TransferAggregate.Repositories;
 using Transfer.Infrastructure.Common.Idempotencies.Hashing;
 using Transfer.Infrastructure.Common.Idempotencies.Repositories;
 using Transfer.Infrastructure.CrossCutting.ResourcesCatalog;
+using Transfer.Infrastructure.Repositories;
 
 namespace Transfer.Api.Configurations;
 
@@ -23,6 +25,7 @@ public static class Bootstrap
     public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
     {
         return services
+            .AddScoped<ITransferRepository, TransferRepository>()
             .AddScoped<IIdempotencyRepository, IdempotencyRepository>()
             .AddScoped<IIdempotencyHasher, IdempotencyHasher>();
     }
@@ -49,7 +52,5 @@ public static class Bootstrap
             .AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>))
             .AddTransient(typeof(IPipelineBehavior<,>), typeof(IdempotencyBehavior<,>));
-
-        return services;
     }
 }

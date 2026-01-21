@@ -4,4 +4,4 @@ using Transfer.Core.Common.Indepotencies;
 
 namespace Transfer.Application.Transfer.Commands.CreateTransfer;
 
-public record CreateTransferCommand(Guid RequestId) : IRequest<Unit>, IIdempotencyRequest;
+public record CreateTransferCommand(Guid RequestId, decimal DestinationAccountNumber, decimal Amount, string UserId) : IRequest<Unit>, IIdempotencyRequest;

@@ -43,6 +43,50 @@
           }
         }
       ]
+    },
+    {
+      "Key": "INVALID_REQUEST_ID",
+      "values": [
+        {
+          "value": {
+            "code": "Invalid.RequestId",
+            "message": "Field 'RequestId' invalid."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "INVALID_DESTINATION_ACCOUNT_NUMBER",
+      "values": [
+        {
+          "value": {
+            "code": "Invalid.DestinationAccountNumber",
+            "message": "Field 'DestinationAccountNumber' invalid."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "INVALID_VALUE",
+      "values": [
+        {
+          "value": {
+            "code": "Invalid.Amount",
+            "message": "Just positive amount values are acceptable"
+          }
+        }
+      ]
+    },
+    {
+      "Key": "USER_IS_REQUIRED",
+      "values": [
+        {
+          "value": {
+            "code": "User.IsRequired",
+            "message": "The user is required."
+          }
+        }
+      ]
     }
   ]
 }

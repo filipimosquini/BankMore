@@ -6,6 +6,7 @@ using System;
 using Transfer.Api.Configurations;
 using Transfer.Api.Configurations.Extensions;
 using Transfer.Api.Configurations.Middlewares;
+using Transfer.Infrastructure.Common.Integrations.Configurations;
 using Transfer.Infrastructure.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +35,8 @@ builder.Services
     .AddInfrastructureDependencies()
     .AddServicesDependencies()
     .AddValidatorDependencies()
-    .AddMediatrDependencies();
+    .AddMediatrDependencies()
+    .AddIntegrations(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

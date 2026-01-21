@@ -2,4 +2,4 @@
 
 namespace Authentication.Infrastructure.CrossCutting.Exceptions;
 
-public class UserNotFoundException() : AppCustomException("USER_NOT_FOUND", HttpStatusCode.NotFound);
+public class UserNotFoundException() : AppNotificationBaseException("USER_NOT_FOUND", HttpStatusCode.NotFound);

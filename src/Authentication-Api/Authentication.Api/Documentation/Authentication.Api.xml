@@ -4,9 +4,9 @@
         <name>Authentication.Api</name>
     </assembly>
     <members>
-        <member name="M:Authentication.Api.Configuration.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Authentication.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
+        <member name="M:Authentication.Api.Configuration.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Authentication.Infrastructure.CrossCutting.Exceptions.AppNotificationBaseException)">
             <summary>
-            Handle the exception result when AppCustomException occurs.
+            Handle the exception result when AppNotificationBaseException occurs.
             </summary>
             <param name="exception"> The exception. </param>
             <returns></returns>

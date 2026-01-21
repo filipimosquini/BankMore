@@ -33,7 +33,7 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
-        catch (AppCustomException exception)
+        catch (AppNotificationBaseException exception)
         {
             await HandleAppCustomException(context.Response, exception);
         }
@@ -52,11 +52,11 @@ public class ExceptionMiddleware
     }
 
     /// <summary>
-    /// Handle the exception result when AppCustomException occurs.
+    /// Handle the exception result when AppNotificationBaseException occurs.
     /// </summary>
     /// <param name="exception"> The exception. </param>
     /// <returns></returns>
-    private Task HandleAppCustomException(HttpResponse response, AppCustomException exception)
+    private Task HandleAppCustomException(HttpResponse response, AppNotificationBaseException exception)
     {
         _logger.LogError(new
         {

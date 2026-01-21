@@ -3,11 +3,11 @@ using System;
 
 namespace Authentication.Infrastructure.CrossCutting.Exceptions;
 
-public class AppCustomException : Exception
+public class AppNotificationBaseException : Exception
 {
     public HttpStatusCode HttpStatusCode { get; }
 
-    public AppCustomException(string message, HttpStatusCode httpStatusCode) : base(message)
+    public AppNotificationBaseException(string message, HttpStatusCode httpStatusCode) : base(message)
     {
         HttpStatusCode = httpStatusCode;
     }

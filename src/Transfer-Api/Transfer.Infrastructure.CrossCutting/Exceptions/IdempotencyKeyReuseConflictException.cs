@@ -2,4 +2,4 @@
 
 namespace Transfer.Infrastructure.CrossCutting.Exceptions;
 
-public class IdempotencyKeyReuseConflictException() : AppCustomException("IDEMPOTENCY_KEY_REUSE", HttpStatusCode.Conflict);
+public class IdempotencyKeyReuseConflictException() : AppNotificationBaseException("IDEMPOTENCY_KEY_REUSE", HttpStatusCode.Conflict);

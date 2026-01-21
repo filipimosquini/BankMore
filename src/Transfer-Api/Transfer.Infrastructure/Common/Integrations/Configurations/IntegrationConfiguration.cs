@@ -19,6 +19,12 @@ public static class IntegrationConfiguration
 {
     public static IHttpResiliencePipelineBuilder AddIntegrations(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddOptions<AccountApiOptions>()
+            .Bind(configuration.GetSection("Integrations:AccountApi"))
+            .Validate(o => !string.IsNullOrWhiteSpace(o.BaseUrl), "BaseUrl is required")
+            .Validate(o => o.TimeoutSeconds > 0, "TimeoutSeconds must be greater than zero")
+            .ValidateOnStart();
+
         return services
             .AddRefitClient<IAccountApiRefit>()
             .ConfigureHttpClient((sp, client) =>

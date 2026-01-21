@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Transfer.Infrastructure.Sections;
 
@@ -21,10 +21,10 @@ public static class AuthenticationSetup
         var identitySettings = appSettingsSection.Get<Identity>();
 
         services.AddAuthentication(auth =>
-            {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+        {
+            auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
             .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
@@ -38,7 +38,6 @@ public static class AuthenticationSetup
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     RoleClaimType = "role",
-
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };
@@ -52,13 +51,11 @@ public static class AuthenticationSetup
 
                         var raw = authHeader.ToString();
 
-                        if (!raw.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase) &&
-                            !raw.Equals("Bearer", StringComparison.OrdinalIgnoreCase))
-                        {
-                            context.HttpContext.Items["HasAuthFailed"] = true;
-                            context.HttpContext.Items["AuthFailureReason"] = "TOKEN_INVALID";
+                        if (string.IsNullOrWhiteSpace(raw))
                             return Task.CompletedTask;
-                        }
+
+                        if (!raw.StartsWith("Bearer", StringComparison.OrdinalIgnoreCase))
+                            return Task.CompletedTask;
 
                         var token = raw.Length > "Bearer".Length ? raw["Bearer".Length..].Trim() : string.Empty;
 
@@ -74,7 +71,10 @@ public static class AuthenticationSetup
 
                     OnAuthenticationFailed = context =>
                     {
-                        context.HttpContext.Items["HasAuthFailed"] = true;
+                        context.HttpContext.RequestServices
+                            .GetRequiredService<ILoggerFactory>()
+                            .CreateLogger("JwtBearer")
+                            .LogError(context.Exception, "JWT authentication failed");
 
                         context.HttpContext.Items["AuthFailureReason"] =
                             context.Exception is SecurityTokenExpiredException
@@ -86,10 +86,15 @@ public static class AuthenticationSetup
 
                     OnChallenge = context =>
                     {
-                        var hasAuthFailed =
-                            context.HttpContext.Items.TryGetValue("HasAuthFailed", out var v) && v is true;
+                        context.Request.Headers.TryGetValue("Authorization", out var authHeader);
+                        var raw = authHeader.ToString();
 
-                        if (!hasAuthFailed)
+                        var hasBearerToken =
+                            !string.IsNullOrWhiteSpace(raw) &&
+                            raw.StartsWith("Bearer", StringComparison.OrdinalIgnoreCase) &&
+                            !string.IsNullOrWhiteSpace(raw["Bearer".Length..].Trim());
+
+                        if (!hasBearerToken)
                             return Task.CompletedTask;
 
                         context.HandleResponse();
@@ -102,24 +107,24 @@ public static class AuthenticationSetup
                         var body = reason == "TOKEN_EXPIRED"
                             ? new
                             {
-                                notifications = new List<object>
+                                notifications = new[]
                                 {
-                                                new
-                                                {
-                                                    Code = "Expired.Token",
-                                                    Message = "The token was expired."
-                                                }
+                                    new
+                                    {
+                                        code = "Expired.Token",
+                                        message = "The token was expired."
+                                    }
                                 }
                             }
                             : new
                             {
-                                notifications = new List<object>
+                                notifications = new[]
                                 {
-                                                new
-                                                {
-                                                    Code = "Invalid.Token",
-                                                    Message = "The token is invalid."
-                                                }
+                                    new
+                                    {
+                                        code = "Invalid.Token",
+                                        message = "The token is invalid."
+                                    }
                                 }
                             };
 

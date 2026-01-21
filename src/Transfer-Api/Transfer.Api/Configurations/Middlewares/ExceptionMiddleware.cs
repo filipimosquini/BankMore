@@ -33,7 +33,7 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
-        catch (AppCustomException exception)
+        catch (AppNotificationBaseException exception)
         {
             await HandleAppCustomException(context.Response, exception);
         }
@@ -41,7 +41,7 @@ public class ExceptionMiddleware
         {
             await HandleValidationException(context.Response, exception);
         }
-        catch (IdempotencyNotificationException exception)
+        catch (IdempotencyNotificationBaseException exception)
         {
             await HandleIdempotencyNotificationException(context.Response, exception);
         }
@@ -52,11 +52,11 @@ public class ExceptionMiddleware
     }
 
     /// <summary>
-    /// Handle the exception result when AppCustomException occurs.
+    /// Handle the exception result when AppNotificationBaseException occurs.
     /// </summary>
     /// <param name="exception"> The exception. </param>
     /// <returns></returns>
-    private Task HandleAppCustomException(HttpResponse response, AppCustomException exception)
+    private Task HandleAppCustomException(HttpResponse response, AppNotificationBaseException exception)
     {
         _logger.LogError(new
         {
@@ -132,30 +132,30 @@ public class ExceptionMiddleware
     }
 
     /// <summary>
-    /// Handle the exception result when IdempotencyNotificationException occurs.
+    /// Handle the baseException result when IdempotencyNotificationBaseException occurs.
     /// </summary>
     /// <param name="response"></param>
-    /// <param name="exception"></param>
+    /// <param name="baseException"></param>
     /// <returns></returns>
-    private Task HandleIdempotencyNotificationException(HttpResponse response, IdempotencyNotificationException exception)
+    private Task HandleIdempotencyNotificationException(HttpResponse response, IdempotencyNotificationBaseException baseException)
     {
         _logger.LogError(new
         {
             timestamp = DateTime.UtcNow,
             correlation = Guid.NewGuid().ToString(),
-            StackTrace = exception.StackTrace
+            StackTrace = baseException.StackTrace
         }.ToJson());
 
         response.ContentType = "application/json";
 
-        if (exception.Envelope.Notifications != null && exception.Envelope.Notifications.Count == 0)
+        if (baseException.Envelope.Notifications != null && baseException.Envelope.Notifications.Count == 0)
         {
             response.StatusCode = (int)HttpStatusCode.InternalServerError;
             return response.WriteAsync(new { notifications = _resourceCatalog.UnexpectedError() }.ToJson());
         }
 
-        response.StatusCode = (int)exception.StatusCode;
-        return response.WriteAsync(new { notifications = exception.Envelope.Notifications }.ToJson());
+        response.StatusCode = (int)baseException.StatusCode;
+        return response.WriteAsync(new { notifications = baseException.Envelope.Notifications }.ToJson());
     }
 
     /// <summary>

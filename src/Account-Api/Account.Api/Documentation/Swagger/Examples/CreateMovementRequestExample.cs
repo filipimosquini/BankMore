@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace Account.Api.Documentation.Swagger.Examples;
 
-public class CreateMovementRequestExample : IExamplesProvider<CreateMovementRequest>
+internal class CreateMovementRequestExample : IExamplesProvider<CreateMovementRequest>
 {
     public CreateMovementRequest GetExamples()
         => new()

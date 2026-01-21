@@ -3,7 +3,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace Account.Api.Documentation.Swagger.Examples;
 
-public class CreateAccountRequestExample : IExamplesProvider<CreateAccountRequest>
+internal class CreateAccountRequestExample : IExamplesProvider<CreateAccountRequest>
 {
     public CreateAccountRequest GetExamples()
         => new ("José da Silva");

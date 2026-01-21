@@ -134,6 +134,130 @@
         ]
       }
     },
+    "/api/accounts/information": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "api/accounts/information. (Auth)",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method gets information from account. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
+        "parameters": [
+          {
+            "name": "AccountNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccountInformationDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccountInformationDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccountInformationDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request\r\n            <ul><li>Inactive.Account</li><li>Invalid.AccountNumber</li><li>User.IsRequired</li></ul>"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
+          },
+          "404": {
+            "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
+          },
+          "503": {
+            "description": "ServiceUnavailable\r\n           <ul><li>Idempotency.Unavailable</li></ul>"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/accounts/information/holder": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "api/accounts/information/holder. (Auth)",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method gets information from account by holder. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccountInformationDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccountInformationDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccountInformationDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request\r\n            <ul><li>Inactive.Account</li><li>User.IsRequired</li></ul>"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
+          },
+          "404": {
+            "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
+          },
+          "503": {
+            "description": "ServiceUnavailable\r\n           <ul><li>Idempotency.Unavailable</li></ul>"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
     "/api/movements": {
       "post": {
         "tags": [
@@ -394,6 +518,20 @@
           },
           "movementType": {
             "$ref": "#/components/schemas/MovementTypeEnum"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetAccountInformationDto": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "accountNumber": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

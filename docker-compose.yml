@@ -64,3 +64,22 @@ services:
     depends_on:
       bankmore.oracle:
         condition: service_healthy
+        
+  transfer.api:
+    container_name: transfer.api
+    image: ${DOCKER_REGISTRY-}transfer
+    build:
+      context: .
+      dockerfile: src/transfer-Api/transfer.Api/Dockerfile
+    restart: always
+    ports:
+      - "5020:80"
+    environment:
+      ASPNETCORE_URLS: http://+:80    
+      ASPNETCORE_ENVIRONMENT: Production
+      DOTNET_ENVIRONMENT: Production
+      Identity__Authority: "http://authentication.api"
+      Identity__Audience: "http://localhost"
+    depends_on:
+      bankmore.oracle:
+        condition: service_healthy

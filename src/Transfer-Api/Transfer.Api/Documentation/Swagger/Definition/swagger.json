@@ -70,7 +70,7 @@
             "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
           },
           "409": {
-            "description": "Conflict\r\n           <ul><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li></ul>"
+            "description": "Conflict\r\n           <ul><li>Equals.SourceAndDestinationAccount</li><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li></ul>"
           },
           "422": {
             "description": "Unprocessable Entity\r\n           <ul><li>NotRegistered.Movement</li></ul>"

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Account API",
-    "description": "API that provides endpoints for account services.",
+    "title": "Transfer API",
+    "description": "API that provides endpoints for transfer services.",
     "contact": {
       "name": "Filipi Mosquini",
       "email": "mosquinilabs@gmail.com"
@@ -14,21 +14,69 @@
     "version": "v1"
   },
   "paths": {
-    "/api/test/secure": {
-      "get": {
+    "/api/transfers": {
+      "post": {
         "tags": [
-          "Test"
+          "Transference"
         ],
-        "summary": " (Auth)",
+        "summary": "api/transfers. (Auth)",
+        "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method create a transfer. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransferRequest"
+              },
+              "example": {"destinationAccountNumber":123,"amount":300}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransferRequest"
+              },
+              "example": {"destinationAccountNumber":123,"amount":300}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransferRequest"
+              },
+              "example": {"destinationAccountNumber":123,"amount":300}
+            }
+          }
+        },
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request\r\n            <ul><li>Invalid.DestinationAccountNumber</li><li>Invalid.Amount</li><li>Invalid.RequestId</li><li>User.IsRequired</li></ul>"
           },
           "401": {
             "description": "Unauthorized"
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict\r\n           <ul><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li></ul>"
+          },
+          "500": {
+            "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
+          },
+          "503": {
+            "description": "ServiceUnavailable\r\n           <ul><li>Idempotency.Unavailable</li></ul>"
           }
         },
         "security": [
@@ -40,6 +88,22 @@
     }
   },
   "components": {
+    "schemas": {
+      "CreateTransferRequest": {
+        "type": "object",
+        "properties": {
+          "destinationAccountNumber": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
     "securitySchemes": {
       "Bearer": {
         "type": "apiKey",

@@ -1,77 +1,46 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Account.Api</name>
+        <name>Transfer.Api</name>
     </assembly>
     <members>
-        <member name="M:Account.Api.Configuration.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Authentication.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
+        <member name="M:Transfer.Api.Configurations.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Transfer.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
             <summary>
             Handle the exception result when AppCustomException occurs.
             </summary>
             <param name="exception"> The exception. </param>
             <returns></returns>
         </member>
-        <member name="M:Account.Api.Configuration.Middlewares.ExceptionMiddleware.HandleValidationException(Microsoft.AspNetCore.Http.HttpResponse,FluentValidation.ValidationException)">
+        <member name="M:Transfer.Api.Configurations.Middlewares.ExceptionMiddleware.HandleValidationException(Microsoft.AspNetCore.Http.HttpResponse,FluentValidation.ValidationException)">
             <summary>
             Handle the exception result when ValidationException occurs.
             </summary>
             <param name="exception"> The exception. </param>
             <returns></returns>
         </member>
-        <member name="M:Account.Api.Configuration.Middlewares.ExceptionMiddleware.HandleFatalError(Microsoft.AspNetCore.Http.HttpResponse,System.Exception)">
+        <member name="M:Transfer.Api.Configurations.Middlewares.ExceptionMiddleware.HandleIdempotencyNotificationException(Microsoft.AspNetCore.Http.HttpResponse,Transfer.Infrastructure.CrossCutting.Exceptions.IdempotencyNotificationException)">
+            <summary>
+            Handle the exception result when IdempotencyNotificationException occurs.
+            </summary>
+            <param name="response"></param>
+            <param name="exception"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Transfer.Api.Configurations.Middlewares.ExceptionMiddleware.HandleFatalError(Microsoft.AspNetCore.Http.HttpResponse,System.Exception)">
             <summary>
             Handle the exception result when fatal error occurs.
             </summary>
             <param name="exception"> The exception. </param>
             <returns></returns>
         </member>
-        <member name="T:Account.Api.Controllers.BaseController`1">
-            <summary>
-            Base controller class.
-            </summary>
-        </member>
-        <member name="P:Account.Api.Controllers.BaseController`1._log">
-            <summary>
-            Gets or Sets the log service.
-            </summary>
-        </member>
-        <member name="P:Account.Api.Controllers.BaseController`1._mediatorService">
-            <summary>
-            Gets or Sets the mediator service.
-            </summary>
-        </member>
-        <member name="M:Account.Api.Controllers.BaseController`1.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,MediatR.IMediator)">
-            <summary>
-            The constructor.
-            </summary>
-            <param name="loggerFactory"></param>
-            <param name="mediatorService"></param>
-        </member>
-        <member name="M:Account.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
-            <summary>
-            
-            </summary>
-            <typeparam name="TDataObject">The type of the data object.</typeparam>
-            <param name="function">The function</param>
-            <returns></returns>
-        </member>
-        <member name="M:Account.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Net.HttpStatusCode)">
-            <summary>
-            Generate the response asynchronous.
-            </summary>
-            <typeparam name="TDataObject">The type of the data object.</typeparam>
-            <param name="function">The function</param>
-            <param name="httpStatusCode">The response code.</param>
-            <returns></returns>
-        </member>
-        <member name="T:Authentication.Api.Configurations.Validators.ValidatorBehavior`2">
+        <member name="T:Transfer.Api.Configurations.Validators.ValidatorBehavior`2">
             <summary>
             Validator behavior for mediator pipeline class.
             </summary>
             <typeparam name="TRequest"> The type of the request. </typeparam>
             <typeparam name="TResponse"> The type of the response. </typeparam>
         </member>
-        <member name="M:Authentication.Api.Configurations.Validators.ValidatorBehavior`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
+        <member name="M:Transfer.Api.Configurations.Validators.ValidatorBehavior`2.Handle(`0,MediatR.RequestHandlerDelegate{`1},System.Threading.CancellationToken)">
             <summary>
             Handles the request validations.
             </summary>
@@ -80,6 +49,95 @@
             <param name="cancellationToken"> The cancellation token. </param>
             <returns></returns>
             <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="T:Transfer.Api.Controllers.BaseController`1">
+            <summary>
+            Base controller class.
+            </summary>
+        </member>
+        <member name="P:Transfer.Api.Controllers.BaseController`1._log">
+            <summary>
+            Gets or Sets the log service.
+            </summary>
+        </member>
+        <member name="P:Transfer.Api.Controllers.BaseController`1._mediatorService">
+            <summary>
+            Gets or Sets the mediator service.
+            </summary>
+        </member>
+        <member name="M:Transfer.Api.Controllers.BaseController`1.#ctor(Microsoft.Extensions.Logging.ILoggerFactory,MediatR.IMediator)">
+            <summary>
+            The constructor.
+            </summary>
+            <param name="loggerFactory"></param>
+            <param name="mediatorService"></param>
+        </member>
+        <member name="M:Transfer.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            
+            </summary>
+            <typeparam name="TDataObject">The type of the data object.</typeparam>
+            <param name="function">The function</param>
+            <returns></returns>
+        </member>
+        <member name="M:Transfer.Api.Controllers.BaseController`1.ExecuteAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Net.HttpStatusCode)">
+            <summary>
+            Generate the response asynchronous.
+            </summary>
+            <typeparam name="TDataObject">The type of the data object.</typeparam>
+            <param name="function">The function</param>
+            <param name="httpStatusCode">The response code.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Transfer.Api.Controllers.TransferenceController.CreateTransferAsync(Transfer.Api.Controllers.Requests.CreateTransferRequest,System.Guid)">
+            <summary>
+            api/transfers.
+            </summary>
+            <remarks>
+            <p>
+            <b> Description: </b><br />
+            This method create a transfer. <br />
+            </p>
+            <p>
+            <b> Requirements: </b><br />
+            Is required to be authenticated. <br />
+            </p>
+            </remarks>
+            <response code="204">No Content</response>
+            <response code="400">Bad Request
+            <ul>
+                <li>Invalid.DestinationAccountNumber</li>
+                <li>Invalid.Amount</li>
+                <li>Invalid.RequestId</li>
+                <li>User.IsRequired</li>
+            </ul>
+            </response>
+            <response code="401"> Unauthorized
+            </response>
+            <response code="403"> Forbidden
+            <ul>
+                <li>Expired.Token</li>
+                <li>Invalid.Token</li>
+            </ul>
+            </response>
+            <response code="404">Not Found
+            </response>
+            <response code="409"> Conflict
+            <ul>
+                <li>Idempotency.InProgress</li>
+                <li>Idempotency.KeyReuse</li>
+            </ul>
+            </response>
+            <response code="500">InternalServerError
+            <ul>
+                <li>Error.Unexpected</li>
+            </ul>
+            </response>
+            <response code="503"> ServiceUnavailable
+            <ul>
+                <li>Idempotency.Unavailable</li>
+            </ul>
+            </response>
         </member>
     </members>
 </doc>

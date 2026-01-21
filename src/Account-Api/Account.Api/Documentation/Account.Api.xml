@@ -4,9 +4,9 @@
         <name>Account.Api</name>
     </assembly>
     <members>
-        <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Account.Infrastructure.CrossCutting.Exceptions.AppCustomException)">
+        <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleAppCustomException(Microsoft.AspNetCore.Http.HttpResponse,Account.Infrastructure.CrossCutting.Exceptions.AppNotificationBaseException)">
             <summary>
-            Handle the exception result when AppCustomException occurs.
+            Handle the exception result when AppNotificationBaseException occurs.
             </summary>
             <param name="response"> The response. </param>
             <param name="exception"> The exception. </param>
@@ -20,9 +20,9 @@
             <param name="exception"> The exception. </param>
             <returns></returns>
         </member>
-        <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleIdempotencyNotificationException(Microsoft.AspNetCore.Http.HttpResponse,Account.Infrastructure.CrossCutting.Exceptions.IdempotencyNotificationException)">
+        <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleIdempotencyNotificationException(Microsoft.AspNetCore.Http.HttpResponse,Account.Infrastructure.CrossCutting.Exceptions.IdempotencyNotificationBaseException)">
             <summary>
-            Handle the exception result when IdempotencyNotificationException occurs.
+            Handle the exception result when IdempotencyNotificationBaseException occurs.
             </summary>
             <param name="response"></param>
             <param name="exception"></param>

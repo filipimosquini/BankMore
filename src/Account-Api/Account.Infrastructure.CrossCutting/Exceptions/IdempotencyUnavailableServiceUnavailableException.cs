@@ -3,4 +3,4 @@ using System.Net;
 
 namespace Account.Infrastructure.CrossCutting.Exceptions;
 
-public class IdempotencyUnavailableServiceUnavailableException(Exception innerException) : AppCustomException("IDEMPOTENCY_UNAVAILABLE", HttpStatusCode.ServiceUnavailable, innerException);
+public class IdempotencyUnavailableServiceUnavailableException(Exception innerException) : AppNotificationBaseException("IDEMPOTENCY_UNAVAILABLE", HttpStatusCode.ServiceUnavailable, innerException);

@@ -81,7 +81,7 @@ public sealed class IdempotencyBehavior<TRequest, TResponse>(IIdempotencyReposit
 
             if (LooksLikeNotificationError(existing.Result, out var notifications))
             {
-                throw new IdempotencyNotificationException(notifications, HttpStatusCode.Conflict);
+                throw new IdempotencyNotificationBaseException(notifications, HttpStatusCode.Conflict);
             }
 
             if (typeof(TResponse) == typeof(Unit))

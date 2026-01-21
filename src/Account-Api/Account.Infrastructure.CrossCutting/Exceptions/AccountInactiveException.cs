@@ -2,4 +2,4 @@
 
 namespace Account.Infrastructure.CrossCutting.Exceptions;
 
-public class AccountInactiveException() : AppCustomException("INACTIVE_ACCOUNT", HttpStatusCode.BadRequest);
+public class AccountInactiveException() : AppNotificationBaseException("INACTIVE_ACCOUNT", HttpStatusCode.BadRequest);

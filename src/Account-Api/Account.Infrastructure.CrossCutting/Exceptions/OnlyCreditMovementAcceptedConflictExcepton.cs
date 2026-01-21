@@ -2,4 +2,4 @@
 
 namespace Account.Infrastructure.CrossCutting.Exceptions;
 
-public class OnlyCreditMovementAcceptedConflictExcepton() : AppCustomException("ONLY_MOVEMENT_CREDIT_ACCEPTED", HttpStatusCode.Conflict);
+public class OnlyCreditMovementAcceptedConflictExcepton() : AppNotificationBaseException("ONLY_MOVEMENT_CREDIT_ACCEPTED", HttpStatusCode.Conflict);

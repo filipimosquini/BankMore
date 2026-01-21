@@ -89,7 +89,7 @@
             <param name="httpStatusCode">The response code.</param>
             <returns></returns>
         </member>
-        <member name="M:Transfer.Api.Controllers.TransferenceController.CreateTransferAsync(Transfer.Api.Controllers.Requests.CreateTransferRequest,System.Guid)">
+        <member name="M:Transfer.Api.Controllers.TransferController.CreateTransferAsync(Transfer.Api.Controllers.Requests.CreateTransferRequest,System.Guid)">
             <summary>
             api/transfers.
             </summary>
@@ -106,6 +106,7 @@
             <response code="204">No Content</response>
             <response code="400">Bad Request
             <ul>
+                <li>Inactive.Account</li>
                 <li>Invalid.DestinationAccountNumber</li>
                 <li>Invalid.Amount</li>
                 <li>Invalid.RequestId</li>
@@ -121,11 +122,19 @@
             </ul>
             </response>
             <response code="404">Not Found
+            <ul>
+                <li>NotFound.Account</li>
+            </ul>
             </response>
             <response code="409"> Conflict
             <ul>
                 <li>Idempotency.InProgress</li>
                 <li>Idempotency.KeyReuse</li>
+            </ul>
+            </response>
+            <response code="422"> Unprocessable Entity
+            <ul>
+                <li>NotRegistered.Movement</li>
             </ul>
             </response>
             <response code="500">InternalServerError

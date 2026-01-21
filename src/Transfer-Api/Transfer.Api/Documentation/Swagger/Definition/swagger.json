@@ -17,7 +17,7 @@
     "/api/transfers": {
       "post": {
         "tags": [
-          "Transference"
+          "Transfer"
         ],
         "summary": "api/transfers. (Auth)",
         "description": "<p>\r\n  <b> Description: </b>\r\n  \r\n\r\n            This method create a transfer. \r\n</p>\r\n<p>\r\n  <b> Requirements: </b>\r\n  \r\n\r\n            Is required to be authenticated. \r\n</p>",
@@ -58,7 +58,7 @@
             "description": "No Content"
           },
           "400": {
-            "description": "Bad Request\r\n            <ul><li>Invalid.DestinationAccountNumber</li><li>Invalid.Amount</li><li>Invalid.RequestId</li><li>User.IsRequired</li></ul>"
+            "description": "Bad Request\r\n            <ul><li>Inactive.Account</li><li>Invalid.DestinationAccountNumber</li><li>Invalid.Amount</li><li>Invalid.RequestId</li><li>User.IsRequired</li></ul>"
           },
           "401": {
             "description": "Unauthorized"
@@ -67,10 +67,13 @@
             "description": "Forbidden\r\n           <ul><li>Expired.Token</li><li>Invalid.Token</li></ul>"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Not Found\r\n            <ul><li>NotFound.Account</li></ul>"
           },
           "409": {
             "description": "Conflict\r\n           <ul><li>Idempotency.InProgress</li><li>Idempotency.KeyReuse</li></ul>"
+          },
+          "422": {
+            "description": "Unprocessable Entity\r\n           <ul><li>NotRegistered.Movement</li></ul>"
           },
           "500": {
             "description": "InternalServerError\r\n            <ul><li>Error.Unexpected</li></ul>"
@@ -93,8 +96,8 @@
         "type": "object",
         "properties": {
           "destinationAccountNumber": {
-            "type": "number",
-            "format": "double"
+            "type": "integer",
+            "format": "int32"
           },
           "amount": {
             "type": "number",

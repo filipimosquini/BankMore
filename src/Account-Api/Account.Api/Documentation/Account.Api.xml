@@ -22,10 +22,10 @@
         </member>
         <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleIdempotencyNotificationException(Microsoft.AspNetCore.Http.HttpResponse,Account.Infrastructure.CrossCutting.Exceptions.IdempotencyNotificationBaseException)">
             <summary>
-            Handle the exception result when IdempotencyNotificationBaseException occurs.
+            Handle the baseException result when IdempotencyNotificationBaseException occurs.
             </summary>
             <param name="response"></param>
-            <param name="exception"></param>
+            <param name="baseException"></param>
             <returns></returns>
         </member>
         <member name="M:Account.Api.Configurations.Middlewares.ExceptionMiddleware.HandleFatalError(Microsoft.AspNetCore.Http.HttpResponse,System.Exception)">

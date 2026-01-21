@@ -5,6 +5,7 @@ using System.Reflection;
 using Transfer.Api.Configurations.Validators;
 using Transfer.Application.Common.Idempotencies.Behaviors;
 using Transfer.Application.Common.Integrations;
+using Transfer.Application.Services;
 using Transfer.Application.Transfer.Commands.CreateTransfer;
 using Transfer.Core.Common.Indepotencies.Hashing;
 using Transfer.Core.Common.Indepotencies.Repositories;
@@ -37,7 +38,8 @@ public static class Bootstrap
     public static IServiceCollection AddServicesDependencies(this IServiceCollection services)
     {
         return services
-            .AddTransient<IAccountApiClient, AccountApiClient>();
+            .AddTransient<IAccountApiClient, AccountApiClientAdapter>()
+            .AddTransient<ITransferService, TransferService>();
     }
 
     public static IServiceCollection AddValidatorDependencies(this IServiceCollection services)

@@ -14,7 +14,7 @@ using Transfer.Application.Transfer.Commands.CreateTransfer;
 namespace Transfer.Api.Controllers;
 
 [Route("api/transfers")]
-public class TransferenceController(ILoggerFactory loggerFactory, IMediator mediatorService) : BaseController<TransferenceController>(loggerFactory, mediatorService)
+public class TransferController(ILoggerFactory loggerFactory, IMediator mediatorService) : BaseController<TransferController>(loggerFactory, mediatorService)
 {
     /// <summary>
     /// api/transfers.
@@ -32,6 +32,7 @@ public class TransferenceController(ILoggerFactory loggerFactory, IMediator medi
     /// <response code="204">No Content</response>
     /// <response code="400">Bad Request
     /// <ul>
+    ///     <li>Inactive.Account</li>
     ///     <li>Invalid.DestinationAccountNumber</li>
     ///     <li>Invalid.Amount</li>
     ///     <li>Invalid.RequestId</li>
@@ -47,11 +48,20 @@ public class TransferenceController(ILoggerFactory loggerFactory, IMediator medi
     /// </ul>
     /// </response>
     /// <response code="404">Not Found
+    /// <ul>
+    ///     <li>NotFound.Account</li>
+    /// </ul>
     /// </response>
     /// <response code="409"> Conflict
     /// <ul>
+    ///     <li>Equals.SourceAndDestinationAccount</li>
     ///     <li>Idempotency.InProgress</li>
     ///     <li>Idempotency.KeyReuse</li>
+    /// </ul>
+    /// </response>
+    /// <response code="422"> Unprocessable Entity
+    /// <ul>
+    ///     <li>NotRegistered.Movement</li>
     /// </ul>
     /// </response>
     /// <response code="500">InternalServerError

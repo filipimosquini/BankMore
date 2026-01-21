@@ -87,6 +87,61 @@
           }
         }
       ]
+    },
+    {
+      "Key": "ACCOUNT_NOT_FOUND",
+      "values": [
+        {
+          "value": {
+            "code": "Account.NotFound",
+            "message": "The account is not found."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "INACTIVE_ACCOUNT",
+      "values": [
+        {
+          "value": {
+            "code": "Inactive.Account",
+            "message": "Account is inactive."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "MOVEMENT_CREDIT_NOT_REGISTERED",
+      "values": [
+        {
+          "value": {
+            "code": "NotRegistered.Movement",
+            "message": "Is not possible to register this credit moviment account operation."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "MOVEMENT_DEBIT_NOT_REGISTERED",
+      "values": [
+        {
+          "value": {
+            "code": "NotRegistered.Movement",
+            "message": "Is not possible to register this debit moviment account operation."
+          }
+        }
+      ]
+    },
+    {
+      "Key": "SOURCE_DESTINATION_EQUALS",
+      "values": [
+        {
+          "value": {
+            "code": "Equals.SourceAndDestinationAccount",
+            "message": "Soure and destination accouts are equals."
+          }
+        }
+      ]
     }
   ]
 }
